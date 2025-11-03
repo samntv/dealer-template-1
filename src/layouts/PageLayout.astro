@@ -1,0 +1,14 @@
+---
+import type { MetaData } from '~/types';
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata = {} } = Astro.props;
+---
+
+<BaseLayout metadata={metadata}>
+  <slot />
+</BaseLayout>

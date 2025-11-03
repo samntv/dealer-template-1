@@ -1,0 +1,47 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  actions?: Array<{
+    text: string;
+    href: string;
+    variant?: 'primary' | 'secondary';
+  }>;
+}
+
+const {
+  title = 'Ready to get started?',
+  subtitle = 'Contact us today to learn how we can help grow your business.',
+  actions = [
+    { text: 'Get In Touch', href: '/contact', variant: 'primary' },
+  ],
+} = Astro.props;
+---
+
+<section class="py-16 md:py-24 bg-blue-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+      {title}
+    </h2>
+    <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+      {subtitle}
+    </p>
+    
+    {actions.length > 0 && (
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        {actions.map((action) => (
+          <a
+            href={action.href}
+            class={
+              action.variant === 'secondary'
+                ? 'px-8 py-3 text-base font-medium rounded-lg border-2 border-white text-white hover:bg-white hover:text-blue-600 transition'
+                : 'px-8 py-3 text-base font-medium rounded-lg bg-white text-blue-600 hover:bg-gray-100 transition'
+            }
+          >
+            {action.text}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

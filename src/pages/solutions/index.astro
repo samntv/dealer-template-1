@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const solutions = await getCollection('solutions');
+const foundational = solutions.filter(s => s.data.category === 'foundational').sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const leadGen = solutions.filter(s => s.data.category === 'lead-gen').sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+
+const metadata = {
+  title: 'Solutions - Your Brand',
+  description: 'Comprehensive marketing solutions to grow your business',
+};
+---
+
+<PageLayout metadata={metadata}>
+  <Hero
+    title="Marketing Solutions"
+    subtitle="Explore our comprehensive marketing solutions designed to help your business thrive"
+  />
+
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Foundational Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {foundational.map(item => (
+            <a href={`/solutions/foundational/${item.slug}`} class="p-6 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transition">
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">{item.data.title}</h3>
+              <p class="text-gray-600">{item.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Lead Generation</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {leadGen.map(item => (
+            <a href={`/solutions/lead-gen/${item.slug}`} class="p-6 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-lg transition">
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">{item.data.title}</h3>
+              <p class="text-gray-600">{item.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</PageLayout>

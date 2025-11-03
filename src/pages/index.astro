@@ -1,0 +1,69 @@
+---
+import PageLayout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Your Brand - Premium Marketing Solutions',
+  description: 'Elevate your business with our comprehensive marketing solutions including website design, social media management, and indoor billboard advertising.',
+};
+---
+
+<PageLayout metadata={metadata}>
+  <Hero
+    tagline="Marketing Excellence"
+    title="Elevate Your Brand with Premium Marketing Solutions"
+    subtitle="From foundational services to lead generation, we provide comprehensive marketing solutions tailored to your business goals."
+    actions={[
+      { text: 'Get Started', href: '/solutions', variant: 'primary' },
+      { text: 'Learn More', href: '/indoor-billboards', variant: 'secondary' },
+    ]}
+  />
+
+  <Features
+    title="Why Choose Us"
+    subtitle="We deliver results-driven marketing solutions that help your business grow"
+    features={[
+      {
+        title: 'Website Design',
+        description: 'Custom websites that convert visitors into customers with stunning design and seamless UX.',
+        icon: '🎨',
+      },
+      {
+        title: 'Indoor Billboards',
+        description: 'High-impact advertising in premium indoor locations to reach your target audience.',
+        icon: '📺',
+      },
+      {
+        title: 'Social Media',
+        description: 'Build and engage your audience across all major social platforms with strategic content.',
+        icon: '📱',
+      },
+      {
+        title: 'SEO Optimization',
+        description: 'Rank higher in search results and drive organic traffic to your website.',
+        icon: '🔍',
+      },
+      {
+        title: 'Lead Generation',
+        description: 'Targeted campaigns that generate quality leads and maximize your ROI.',
+        icon: '🎯',
+      },
+      {
+        title: 'Analytics & Tracking',
+        description: 'Data-driven insights to continuously optimize your marketing performance.',
+        icon: '📊',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="Ready to Transform Your Marketing?"
+    subtitle="Let's discuss how our solutions can help you achieve your business goals."
+    actions={[
+      { text: 'Get In Touch', href: '/contact', variant: 'primary' },
+      { text: 'View Our Work', href: '/solutions', variant: 'secondary' },
+    ]}
+  />
+</PageLayout>

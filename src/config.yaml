@@ -1,0 +1,33 @@
+site:
+  name: Your Brand
+  site: 'https://yourdomain.com'
+  base: '/'
+  trailingSlash: false
+
+# Default SEO metadata
+metadata:
+  title:
+    default: Your Brand
+    template: '%s — Your Brand'
+  description: 'Premium marketing solutions including website design, social media management, and indoor billboard advertising.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Your Brand
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    handle: '@yourbrand'
+    site: '@yourbrand'
+    cardType: summary_large_image
+
+i18n:
+  language: en
+  textDirection: ltr
+
+ui:
+  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

@@ -52,6 +52,22 @@ const solutions = defineCollection({
     ctaText: z.string().optional(),
     ctaLink: z.string().optional(),
     image: z.string().optional(),
+    sections: z.array(z.object({
+      section: z.string(),
+      title: z.string(),
+      description: z.string(),
+      eyebrow: z.string().optional(),
+      image: z.string().optional(),
+      order: z.number().optional(),
+      ctaText: z.string().optional(),
+      ctaLink: z.string().optional(),
+      features: z.array(z.object({
+        title: z.string(),
+        description: z.string(),
+        image: z.string().optional(),
+        icon: z.string().optional(),
+      })).optional(),
+    })).optional(),
     metadata: metadataDefinition(),
   }),
 });

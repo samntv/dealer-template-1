@@ -5,8 +5,10 @@ import Hero from "~/components/widgets/Hero.astro";
 import ServicesGrid from "~/components/widgets/ServicesGrid.astro";
 import VenueNetwork from "~/components/widgets/VenueNetwork.astro";
 import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
+import WhyChooseUs from "~/components/widgets/WhyChooseUs.astro";
 import CallToAction from "~/components/widgets/CallToAction.astro";
 import FAQs from "~/components/widgets/FAQs.astro";
+import MapSection from "~/components/widgets/MapSection.astro";
 
 // Get homepage content from MDX
 const homeContent = await getEntry("pages", "home");
@@ -19,8 +21,10 @@ const heroSection = getSection("Hero");
 const servicesGridSection = getSection("ServicesGrid");
 const venueNetworkSection = getSection("VenueNetwork");
 const boostVisibilitySection = getSection("BoostVisibility");
+const whyChooseUsSection = getSection("WhyChooseUs");
 const ctaBannerSection = getSection("CTABanner");
 const faqsSection = getSection("FAQs");
+const mapSection = getSection("Map");
 const finalCTASection = getSection("FinalCTA");
 ---
 
@@ -83,6 +87,18 @@ const finalCTASection = getSection("FinalCTA");
   }
 
   {
+    whyChooseUsSection && (
+      <WhyChooseUs
+        title={whyChooseUsSection.title}
+        description={whyChooseUsSection.description}
+        ctaText={whyChooseUsSection.ctaText}
+        ctaLink={whyChooseUsSection.ctaLink}
+        keyPoints={whyChooseUsSection.keyPoints}
+      />
+    )
+  }
+
+  {
     ctaBannerSection && (
       <CallToAction
         title={ctaBannerSection.title}
@@ -101,6 +117,16 @@ const finalCTASection = getSection("FinalCTA");
   {
     faqsSection && faqsSection.faqs && (
       <FAQs title={faqsSection.title} faqs={faqsSection.faqs} />
+    )
+  }
+
+  {
+    mapSection && (
+      <MapSection
+        title={mapSection.title}
+        description={mapSection.description}
+        locations={mapSection.locations}
+      />
     )
   }
 

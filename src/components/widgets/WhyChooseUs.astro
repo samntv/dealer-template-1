@@ -1,0 +1,72 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  keyPoints?: string[];
+}
+
+const { title, description, ctaText, ctaLink, keyPoints = [] } = Astro.props;
+---
+
+<section class="py-12 sm:py-16 md:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-12">
+      {
+        title && (
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
+            {title}
+          </h2>
+        )
+      }
+      {
+        description && (
+          <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">
+            {description}
+          </p>
+        )
+      }
+    </div>
+
+    {
+      keyPoints.length > 0 && (
+        <div class="max-w-4xl mx-auto mb-8 sm:mb-12">
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {keyPoints.map((point) => (
+              <li class="flex items-start">
+                <svg
+                  class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span class="text-sm sm:text-base text-gray-700">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      ctaText && ctaLink && (
+        <div class="text-center">
+          <a
+            href={ctaLink}
+            class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition text-sm sm:text-base"
+          >
+            {ctaText}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>

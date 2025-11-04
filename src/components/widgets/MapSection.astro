@@ -1,0 +1,92 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  locations?: string[];
+}
+
+const { title, description, locations = [] } = Astro.props;
+---
+
+<section class="py-12 sm:py-16 md:py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8 sm:mb-12">
+      {
+        title && (
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            {title}
+          </h2>
+        )
+      }
+      {
+        description && (
+          <p class="text-base sm:text-lg md:text-xl text-gray-600">
+            {description}
+          </p>
+        )
+      }
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <!-- Map Placeholder -->
+      <div
+        class="w-full h-64 sm:h-80 lg:h-96 bg-gray-200 rounded-lg overflow-hidden shadow-lg"
+      >
+        <div
+          class="w-full h-full flex items-center justify-center text-gray-500"
+        >
+          <div class="text-center">
+            <svg
+              class="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <p class="text-sm sm:text-base">Interactive Map Coming Soon</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Locations List -->
+      {
+        locations.length > 0 && (
+          <div class="bg-primary-dark text-white p-6 sm:p-8 rounded-lg shadow-lg">
+            <h3 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+              Our Locations
+            </h3>
+            <ul class="space-y-3 sm:space-y-4">
+              {locations.map((location) => (
+                <li class="flex items-center">
+                  <svg
+                    class="w-5 h-5 mr-3 flex-shrink-0 text-blue-300"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span class="text-sm sm:text-base">{location}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

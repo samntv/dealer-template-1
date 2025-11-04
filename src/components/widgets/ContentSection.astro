@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 export interface Props {
   sectionData: {
     section: string;
@@ -89,7 +91,7 @@ const getLayoutClasses = (variant: string, hasImage: boolean) => {
                 )}
                 {feature.icon && !feature.image && (
                   <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                    <span class="text-xl sm:text-2xl">{feature.icon}</span>
+                    <Icon name={feature.icon} class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   </div>
                 )}
                 <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">

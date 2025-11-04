@@ -1,69 +1,122 @@
 ---
-import PageLayout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Features from '~/components/widgets/Features.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getEntry } from "astro:content";
+import PageLayout from "~/layouts/PageLayout.astro";
+import Hero from "~/components/widgets/Hero.astro";
+import ServicesGrid from "~/components/widgets/ServicesGrid.astro";
+import VenueNetwork from "~/components/widgets/VenueNetwork.astro";
+import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
+import CallToAction from "~/components/widgets/CallToAction.astro";
+import FAQs from "~/components/widgets/FAQs.astro";
 
-const metadata = {
-  title: 'Your Brand - Premium Marketing Solutions',
-  description: 'Elevate your business with our comprehensive marketing solutions including website design, social media management, and indoor billboard advertising.',
-};
+// Get homepage content from MDX
+const homeContent = await getEntry("pages", "home");
+const { sections } = homeContent.data;
+
+// Helper to find section by name
+const getSection = (name: string) => sections.find((s) => s.section === name);
+
+const heroSection = getSection("Hero");
+const servicesGridSection = getSection("ServicesGrid");
+const venueNetworkSection = getSection("VenueNetwork");
+const boostVisibilitySection = getSection("BoostVisibility");
+const ctaBannerSection = getSection("CTABanner");
+const faqsSection = getSection("FAQs");
+const finalCTASection = getSection("FinalCTA");
 ---
 
-<PageLayout metadata={metadata}>
-  <Hero
-    tagline="Marketing Excellence"
-    title="Elevate Your Brand with Premium Marketing Solutions"
-    subtitle="From foundational services to lead generation, we provide comprehensive marketing solutions tailored to your business goals."
-    actions={[
-      { text: 'Get Started', href: '/solutions', variant: 'primary' },
-      { text: 'Learn More', href: '/indoor-billboards', variant: 'secondary' },
-    ]}
-  />
+<PageLayout metadata={homeContent.data.metadata}>
+  {
+    heroSection && (
+      <Hero
+        tagline={heroSection.eyebrow}
+        title={heroSection.title}
+        subtitle={heroSection.description}
+        image={heroSection.image}
+        actions={[
+          {
+            text: heroSection.ctaText || "Get Started",
+            href: heroSection.ctaLink || "/contact",
+            variant: "primary",
+          },
+        ]}
+      />
+    )
+  }
 
-  <Features
-    title="Why Choose Us"
-    subtitle="We deliver results-driven marketing solutions that help your business grow"
-    features={[
-      {
-        title: 'Website Design',
-        description: 'Custom websites that convert visitors into customers with stunning design and seamless UX.',
-        icon: '🎨',
-      },
-      {
-        title: 'Indoor Billboards',
-        description: 'High-impact advertising in premium indoor locations to reach your target audience.',
-        icon: '📺',
-      },
-      {
-        title: 'Social Media',
-        description: 'Build and engage your audience across all major social platforms with strategic content.',
-        icon: '📱',
-      },
-      {
-        title: 'SEO Optimization',
-        description: 'Rank higher in search results and drive organic traffic to your website.',
-        icon: '🔍',
-      },
-      {
-        title: 'Lead Generation',
-        description: 'Targeted campaigns that generate quality leads and maximize your ROI.',
-        icon: '🎯',
-      },
-      {
-        title: 'Analytics & Tracking',
-        description: 'Data-driven insights to continuously optimize your marketing performance.',
-        icon: '📊',
-      },
-    ]}
-  />
+  {
+    servicesGridSection && servicesGridSection.cards && (
+      <ServicesGrid
+        title={servicesGridSection.title}
+        description={servicesGridSection.description}
+        ctaText={servicesGridSection.ctaText}
+        ctaLink={servicesGridSection.ctaLink}
+        cards={servicesGridSection.cards}
+      />
+    )
+  }
 
-  <CallToAction
-    title="Ready to Transform Your Marketing?"
-    subtitle="Let's discuss how our solutions can help you achieve your business goals."
-    actions={[
-      { text: 'Get In Touch', href: '/contact', variant: 'primary' },
-      { text: 'View Our Work', href: '/solutions', variant: 'secondary' },
-    ]}
-  />
+  {
+    venueNetworkSection && (
+      <VenueNetwork
+        title={venueNetworkSection.title}
+        eyebrow={venueNetworkSection.eyebrow}
+        description={venueNetworkSection.description}
+        ctaText={venueNetworkSection.ctaText}
+        ctaLink={venueNetworkSection.ctaLink}
+        image={venueNetworkSection.image}
+        keyPoints={venueNetworkSection.keyPoints}
+      />
+    )
+  }
+
+  {
+    boostVisibilitySection && boostVisibilitySection.features && (
+      <BoostVisibility
+        title={boostVisibilitySection.title}
+        description={boostVisibilitySection.description}
+        image={boostVisibilitySection.image}
+        ctaText={boostVisibilitySection.ctaText}
+        ctaLink={boostVisibilitySection.ctaLink}
+        features={boostVisibilitySection.features}
+      />
+    )
+  }
+
+  {
+    ctaBannerSection && (
+      <CallToAction
+        title={ctaBannerSection.title}
+        subtitle={ctaBannerSection.description}
+        actions={[
+          {
+            text: ctaBannerSection.ctaText || "Get Started",
+            href: ctaBannerSection.ctaLink || "/contact",
+            variant: "primary",
+          },
+        ]}
+      />
+    )
+  }
+
+  {
+    faqsSection && faqsSection.faqs && (
+      <FAQs title={faqsSection.title} faqs={faqsSection.faqs} />
+    )
+  }
+
+  {
+    finalCTASection && (
+      <CallToAction
+        title={finalCTASection.title}
+        subtitle={finalCTASection.description}
+        actions={[
+          {
+            text: finalCTASection.ctaText || "Get Started",
+            href: finalCTASection.ctaLink || "/contact",
+            variant: "primary",
+          },
+        ]}
+      />
+    )
+  }
 </PageLayout>

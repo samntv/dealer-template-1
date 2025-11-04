@@ -1,4 +1,4 @@
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection } from "astro:content";
 
 // Reusable metadata schema for SEO
 const metadataDefinition = () =>
@@ -43,38 +43,46 @@ const metadataDefinition = () =>
 
 // Solutions collection (website design, social media, etc.)
 const solutions = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum(['foundational', 'lead-gen']),
+    category: z.enum(["foundational", "lead-gen"]),
     order: z.number().optional(),
     ctaText: z.string().optional(),
     ctaLink: z.string().optional(),
     image: z.string().optional(),
-    sections: z.array(z.object({
-      section: z.string(),
-      title: z.string(),
-      description: z.string(),
-      eyebrow: z.string().optional(),
-      image: z.string().optional(),
-      order: z.number().optional(),
-      ctaText: z.string().optional(),
-      ctaLink: z.string().optional(),
-      features: z.array(z.object({
-        title: z.string(),
-        description: z.string(),
-        image: z.string().optional(),
-        icon: z.string().optional(),
-      })).optional(),
-    })).optional(),
+    sections: z
+      .array(
+        z.object({
+          section: z.string(),
+          title: z.string(),
+          description: z.string(),
+          eyebrow: z.string().optional(),
+          image: z.string().optional(),
+          order: z.number().optional(),
+          ctaText: z.string().optional(),
+          ctaLink: z.string().optional(),
+          features: z
+            .array(
+              z.object({
+                title: z.string(),
+                description: z.string(),
+                image: z.string().optional(),
+                icon: z.string().optional(),
+              })
+            )
+            .optional(),
+        })
+      )
+      .optional(),
     metadata: metadataDefinition(),
   }),
 });
 
 // Indoor Billboards collection
 const indoorBillboards = defineCollection({
-  type: 'content',
+  type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -84,7 +92,68 @@ const indoorBillboards = defineCollection({
   }),
 });
 
+// Pages collection (for homepage and other pages)
+const pages = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    sections: z.array(
+      z.object({
+        section: z.string(),
+        eyebrow: z.string().optional(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        ctaText: z.string().optional(),
+        ctaLink: z.string().optional(),
+        image: z.string().optional(),
+        background: z.string().optional(),
+        order: z.number().optional(),
+        cards: z
+          .array(
+            z.object({
+              title: z.string(),
+              description: z.string(),
+              icon: z.string().optional(),
+              link: z.string().optional(),
+            })
+          )
+          .optional(),
+        features: z
+          .array(
+            z.object({
+              title: z.string(),
+              description: z.string(),
+              icon: z.string().optional(),
+            })
+          )
+          .optional(),
+        stats: z
+          .array(
+            z.object({
+              label: z.string(),
+              value: z.string(),
+            })
+          )
+          .optional(),
+        keyPoints: z.array(z.string()).optional(),
+        faqs: z
+          .array(
+            z.object({
+              question: z.string(),
+              answer: z.string(),
+            })
+          )
+          .optional(),
+        locations: z.array(z.string()).optional(),
+      })
+    ),
+    metadata: metadataDefinition(),
+  }),
+});
+
 export const collections = {
   solutions,
-  'indoor-billboards': indoorBillboards,
+  "indoor-billboards": indoorBillboards,
+  pages,
 };

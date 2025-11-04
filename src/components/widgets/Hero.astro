@@ -3,6 +3,7 @@ interface Props {
   title?: string;
   subtitle?: string;
   tagline?: string;
+  image?: string;
   actions?: Array<{
     text: string;
     href: string;
@@ -14,24 +15,43 @@ const {
   title = 'Welcome to Your Brand',
   subtitle = 'Elevate your business with our comprehensive marketing solutions',
   tagline,
+  image,
   actions = [],
 } = Astro.props;
 ---
 
-<section class="relative bg-gradient-to-b from-blue-50 to-white py-20 md:py-32">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="relative py-20 md:py-32 overflow-hidden">
+  <!-- Background Image with Parallax (Desktop only) -->
+  {image && (
+    <div class="hidden md:block absolute inset-0 z-0" id="hero-bg">
+      <img 
+        src={image} 
+        alt="Hero background"
+        class="w-full h-[120%] object-cover blur-[2px]"
+        style="transform: translateY(0px);"
+        loading="eager"
+      />
+      <!-- Dark Overlay -->
+      <div class="absolute inset-0 bg-black/30"></div>
+    </div>
+  )}
+  
+  <!-- Fallback gradient (mobile or no image) -->
+  <div class={`absolute inset-0 z-0 ${image ? 'md:hidden' : ''} bg-gradient-to-b from-blue-50 to-white`}></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto">
       {tagline && (
-        <p class="text-blue-600 font-semibold text-sm uppercase tracking-wide mb-4">
+        <p class={`font-semibold text-sm uppercase tracking-wide mb-4 ${image ? 'md:text-blue-200 text-blue-600' : 'text-blue-600'}`}>
           {tagline}
         </p>
       )}
       
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+      <h1 class={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${image ? 'md:text-white text-gray-900' : 'text-gray-900'}`}>
         {title}
       </h1>
       
-      <p class="text-xl text-gray-600 mb-8">
+      <p class={`text-xl mb-8 ${image ? 'md:text-gray-100 text-gray-600' : 'text-gray-600'}`}>
         {subtitle}
       </p>
       
@@ -54,3 +74,27 @@ const {
     </div>
   </div>
 </section>
+
+<script>
+  function initParallax() {
+    const heroBg = document.getElementById('hero-bg');
+    if (!heroBg) return;
+
+    const img = heroBg.querySelector('img');
+    if (!img) return;
+
+    function handleScroll() {
+      const scrolled = window.scrollY;
+      const rate = scrolled * 0.5; // Parallax speed
+      img.style.transform = `translateY(${rate}px)`;
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  // Initialize on page load
+  initParallax();
+  
+  // Re-initialize after view transitions
+  document.addEventListener('astro:after-swap', initParallax);
+</script>

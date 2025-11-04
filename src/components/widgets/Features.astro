@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Feature {
   title: string;
   description: string;
@@ -36,7 +38,7 @@ const { title, subtitle, features = [] } = Astro.props;
         <div class="p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-lg transition">
           {feature.icon && (
             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-2xl">{feature.icon}</span>
+              <Icon name={feature.icon} class="w-6 h-6 text-blue-600" />
             </div>
           )}
           <h3 class="text-xl font-semibold text-gray-900 mb-2">

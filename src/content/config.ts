@@ -60,9 +60,20 @@ const solutions = defineCollection({
           description: z.string(),
           eyebrow: z.string().optional(),
           image: z.string().optional(),
+          background: z.string().optional(),
+          imagePosition: z.string().optional(),
           order: z.number().optional(),
           ctaText: z.string().optional(),
           ctaLink: z.string().optional(),
+          keyPoints: z.array(z.string()).optional(),
+          faqs: z
+            .array(
+              z.object({
+                question: z.string(),
+                answer: z.string(),
+              })
+            )
+            .optional(),
           features: z
             .array(
               z.object({

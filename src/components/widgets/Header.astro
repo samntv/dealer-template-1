@@ -1,26 +1,29 @@
 ---
-import { getCollection } from 'astro:content';
-import { headerData } from '~/navigation';
-import { getPermalink } from '~/utils/permalinks';
-import ToggleMenu from '../ui/ToggleMenu.astro';
+import { getCollection } from "astro:content";
+import { headerData } from "~/navigation";
+import { getPermalink } from "~/utils/permalinks";
+import { SITE_NAME } from "~/utils/config";
+import ToggleMenu from "../ui/ToggleMenu.astro";
 
 // Hydrate navigation with content collections
-const solutions = await getCollection('solutions');
-const billboards = await getCollection('indoor-billboards');
+const solutions = await getCollection("solutions");
+const billboards = await getCollection("indoor-billboards");
 
 const foundational = solutions
-  .filter((s) => s.data.category === 'foundational')
+  .filter((s) => s.data.category === "foundational")
   .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 
 const leadGen = solutions
-  .filter((s) => s.data.category === 'lead-gen')
+  .filter((s) => s.data.category === "lead-gen")
   .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 
-const sortedBillboards = billboards.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const sortedBillboards = billboards.sort(
+  (a, b) => (a.data.order || 0) - (b.data.order || 0)
+);
 
 // Hydrate the config
 const links = headerData.links.map((link: any) => {
-  if (link.text === 'Indoor Billboards' && link.links === 'auto') {
+  if (link.text === "Indoor Billboards" && link.links === "auto") {
     return {
       ...link,
       links: sortedBillboards.map((item) => ({
@@ -30,25 +33,29 @@ const links = headerData.links.map((link: any) => {
     };
   }
 
-  if (link.text === 'Solutions' && Array.isArray(link.links)) {
+  if (link.text === "Solutions" && Array.isArray(link.links)) {
     return {
       ...link,
       links: link.links.map((sublink: any) => {
-        if (sublink.text === 'Foundational' && sublink.links === 'auto') {
+        if (sublink.text === "Foundational" && sublink.links === "auto") {
           return {
             ...sublink,
             links: foundational.map((item) => ({
               text: item.data.title,
-              href: getPermalink(`/solutions/foundational/${item.slug.replace('foundational/', '')}`),
+              href: getPermalink(
+                `/solutions/foundational/${item.slug.replace("foundational/", "")}`
+              ),
             })),
           };
         }
-        if (sublink.text === 'Lead Gen' && sublink.links === 'auto') {
+        if (sublink.text === "Lead Gen" && sublink.links === "auto") {
           return {
             ...sublink,
             links: leadGen.map((item) => ({
               text: item.data.title,
-              href: getPermalink(`/solutions/lead-gen/${item.slug.replace('lead-gen/', '')}`),
+              href: getPermalink(
+                `/solutions/lead-gen/${item.slug.replace("lead-gen/", "")}`
+              ),
             })),
           };
         }
@@ -63,100 +70,127 @@ const links = headerData.links.map((link: any) => {
 const { actions = [] } = headerData;
 ---
 
-<header class="sticky top-0 z-40 flex-none mx-auto w-full bg-white border-b border-gray-200">
+<header
+  class="sticky top-0 z-40 flex-none mx-auto w-full bg-white border-b border-gray-200"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <div class="flex-shrink-0">
         <a href="/" class="flex items-center text-xl font-bold text-gray-900">
-          Your Brand
+          {SITE_NAME}
         </a>
       </div>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex md:items-center md:space-x-4">
         <nav class="flex items-center space-x-1" aria-label="Main navigation">
-        {
-          links.map((link) => (
-            <div class="relative group">
-              {link.links && link.links.length > 0 ? (
-                <>
-                  <button class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 inline-flex items-center">
-                    {link.text}
-                    <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div class="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
-                      <a
-                        href={link.href}
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+          {
+            links.map((link) => (
+              <div class="relative group">
+                {link.links && link.links.length > 0 ? (
+                  <>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 inline-flex items-center">
+                      {link.text}
+                      <svg
+                        class="ml-1 h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        Overview
-                      </a>
-                      {link.links.map((sublink) => (
-                        <div class="relative group/nested">
-                          {sublink.links && sublink.links.length > 0 ? (
-                            <>
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                    <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div class="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
+                        <a
+                          href={link.href}
+                          class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                        >
+                          Overview
+                        </a>
+                        {link.links.map((sublink) => (
+                          <div class="relative group/nested">
+                            {sublink.links && sublink.links.length > 0 ? (
+                              <>
+                                <a
+                                  href={sublink.href}
+                                  class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                >
+                                  {sublink.text}
+                                  <svg
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"
+                                    />
+                                  </svg>
+                                </a>
+                                <div class="absolute left-full top-0 w-64 ml-1 opacity-0 invisible group-hover/nested:opacity-100 group-hover/nested:visible transition-all duration-200">
+                                  <div class="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
+                                    {sublink.links.map((nestedLink) => (
+                                      <a
+                                        href={nestedLink.href}
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                      >
+                                        {nestedLink.text}
+                                      </a>
+                                    ))}
+                                  </div>
+                                </div>
+                              </>
+                            ) : (
                               <a
                                 href={sublink.href}
-                                class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                               >
                                 {sublink.text}
-                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
                               </a>
-                              <div class="absolute left-full top-0 w-64 ml-1 opacity-0 invisible group-hover/nested:opacity-100 group-hover/nested:visible transition-all duration-200">
-                                <div class="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
-                                  {sublink.links.map((nestedLink) => (
-                                    <a
-                                      href={nestedLink.href}
-                                      class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                                    >
-                                      {nestedLink.text}
-                                    </a>
-                                  ))}
-                                </div>
-                              </div>
-                            </>
-                          ) : (
-                            <a
-                              href={sublink.href}
-                              class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                            >
-                              {sublink.text}
-                            </a>
-                          )}
-                        </div>
-                      ))}
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </>
-              ) : (
-                <a href={link.href} class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600">
-                  {link.text}
-                </a>
-              )}
-            </div>
-          ))
-        }
+                  </>
+                ) : (
+                  <a
+                    href={link.href}
+                    class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600"
+                  >
+                    {link.text}
+                  </a>
+                )}
+              </div>
+            ))
+          }
         </nav>
 
         <!-- CTA Actions -->
-        {actions.length > 0 && (
-          <div class="flex items-center gap-3">
-            {actions.map((action) => (
-              <a
-                href={action.href}
-                class="px-5 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-              >
-                {action.text}
-              </a>
-            ))}
-          </div>
-        )}
+        {
+          actions.length > 0 && (
+            <div class="flex items-center gap-3">
+              {actions.map((action) => (
+                <a
+                  href={action.href}
+                  class="px-5 py-2 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                >
+                  {action.text}
+                </a>
+              ))}
+            </div>
+          )
+        }
       </div>
 
       <!-- Mobile menu button -->
@@ -176,12 +210,25 @@ const { actions = [] } = headerData;
               <>
                 <button class="mobile-dropdown-btn w-full flex items-center justify-between px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 rounded-md">
                   {link.text}
-                  <svg class="h-5 w-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  <svg
+                    class="h-5 w-5 transform transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
                 <div class="mobile-dropdown-content hidden pl-4 space-y-1">
-                  <a href={link.href} class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md">
+                  <a
+                    href={link.href}
+                    class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md"
+                  >
                     Overview
                   </a>
                   {link.links.map((sublink) => (
@@ -190,20 +237,36 @@ const { actions = [] } = headerData;
                         <>
                           <button class="mobile-dropdown-btn w-full flex items-center justify-between px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md">
                             {sublink.text}
-                            <svg class="h-4 w-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            <svg
+                              class="h-4 w-4 transform transition-transform"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 9l-7 7-7-7"
+                              />
                             </svg>
                           </button>
                           <div class="mobile-dropdown-content hidden pl-4 space-y-1">
                             {sublink.links.map((nestedLink) => (
-                              <a href={nestedLink.href} class="block px-3 py-2 text-xs text-gray-500 hover:bg-gray-50 hover:text-blue-600 rounded-md">
+                              <a
+                                href={nestedLink.href}
+                                class="block px-3 py-2 text-xs text-gray-500 hover:bg-gray-50 hover:text-blue-600 rounded-md"
+                              >
                                 {nestedLink.text}
                               </a>
                             ))}
                           </div>
                         </>
                       ) : (
-                        <a href={sublink.href} class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md">
+                        <a
+                          href={sublink.href}
+                          class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md"
+                        >
                           {sublink.text}
                         </a>
                       )}
@@ -212,7 +275,10 @@ const { actions = [] } = headerData;
                 </div>
               </>
             ) : (
-              <a href={link.href} class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 rounded-md">
+              <a
+                href={link.href}
+                class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600 rounded-md"
+              >
                 {link.text}
               </a>
             )}
@@ -225,25 +291,25 @@ const { actions = [] } = headerData;
 
 <script>
   function initMobileMenu() {
-    const toggleButton = document.querySelector('.ml-1\\.5');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const toggleButton = document.querySelector(".ml-1\\.5");
+    const mobileMenu = document.getElementById("mobile-menu");
 
-    toggleButton?.addEventListener('click', () => {
-      mobileMenu?.classList.toggle('hidden');
+    toggleButton?.addEventListener("click", () => {
+      mobileMenu?.classList.toggle("hidden");
     });
 
-    document.querySelectorAll('.mobile-dropdown-btn').forEach((button) => {
-      button.addEventListener('click', (e) => {
+    document.querySelectorAll(".mobile-dropdown-btn").forEach((button) => {
+      button.addEventListener("click", (e) => {
         e.preventDefault();
         const content = button.nextElementSibling;
-        const svg = button.querySelector('svg');
+        const svg = button.querySelector("svg");
 
-        content?.classList.toggle('hidden');
-        svg?.classList.toggle('rotate-180');
+        content?.classList.toggle("hidden");
+        svg?.classList.toggle("rotate-180");
       });
     });
   }
 
   initMobileMenu();
-  document.addEventListener('astro:after-swap', initMobileMenu);
+  document.addEventListener("astro:after-swap", initMobileMenu);
 </script>

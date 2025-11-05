@@ -1,238 +1,197 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import PageLayout from '~/layouts/PageLayout.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Features from '~/components/widgets/Features.astro';
-import ContentSection from '~/components/widgets/ContentSection.astro';
-import { parseContentSections, getSectionVariant, validateContentSection, sanitizeContentSection, type ParsedContent } from '~/utils/content-parser';
+import { getCollection, type CollectionEntry } from "astro:content";
+import PageLayout from "~/layouts/PageLayout.astro";
+import CallToAction from "~/components/widgets/CallToAction.astro";
+import Hero from "~/components/widgets/Hero.astro";
+import FAQs from "~/components/widgets/FAQs.astro";
+import MapSection from "~/components/widgets/MapSection.astro";
+import VenueNetwork from "~/components/widgets/VenueNetwork.astro";
+import ContentWithImage from "~/components/widgets/ContentWithImage.astro";
+import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
+import WhyChooseUs from "~/components/widgets/WhyChooseUs.astro";
+import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
+import ImageCards from "~/components/widgets/ImageCards.astro";
+import { getPageTitle } from "~/utils/config";
 
 export async function getStaticPaths() {
-  try {
-    const solutions = await getCollection('solutions');
-    const foundational = solutions.filter(s => s.data.category === 'foundational');
-    
-    return foundational.map((entry) => ({
-      params: { slug: entry.slug.replace('foundational/', '') },
-      props: { entry },
-    }));
-  } catch (error) {
-    console.error('Error generating static paths:', error);
-    return [];
-  }
+  const solutions = await getCollection("solutions");
+  const foundational = solutions.filter(
+    (s) => s.data.category === "foundational"
+  );
+
+  return foundational.map((entry) => ({
+    params: { slug: entry.slug.replace("foundational/", "") },
+    props: { entry },
+  }));
 }
 
 type Props = {
-  entry: CollectionEntry<'solutions'>;
+  entry: CollectionEntry<"solutions">;
 };
 
 const { entry } = Astro.props;
+const { Content } = await entry.render();
 
-// Error handling for missing or malformed content
-if (!entry) {
-  throw new Error('Content entry not found');
-}
-
-if (!entry.data.title || !entry.data.description) {
-  throw new Error('Invalid content: missing required fields');
-}
-
-let Content;
-let parsedContent: ParsedContent;
-
-try {
-  // Render the MDX content
-  const rendered = await entry.render();
-  Content = rendered.Content;
-  
-  // Parse content sections from frontmatter
-  try {
-    parsedContent = parseContentSections(entry);
-  } catch (error) {
-    console.error(`Error parsing content for ${entry.slug}:`, error);
-    // Fallback to basic content structure
-    parsedContent = {
-      sections: [{
-        section: 'default',
-        title: entry.data.title,
-        description: entry.data.description,
-        order: 1,
-      }],
-      hasMultipleSections: false,
-      metadata: {
-        title: entry.data.title,
-        description: entry.data.description,
-        category: entry.data.category,
-      },
-    };
-  }
-    
-} catch (error) {
-  console.error('Error processing content:', error);
-  // Fallback to basic content structure
-  parsedContent = {
-    sections: [{
-      section: 'default',
-      title: entry.data.title || 'Content Not Available',
-      description: entry.data.description || 'This content is currently unavailable.',
-      order: 1,
-    }],
-    hasMultipleSections: false,
-    metadata: {
-      title: entry.data.title || 'Content Not Available',
-      description: entry.data.description || 'This content is currently unavailable.',
-      category: entry.data.category,
-    },
-  };
-}
-
-const sections = parsedContent.sections
-  .filter(validateContentSection)
-  .map(sanitizeContentSection);
+const sections = entry.data.sections || [];
 
 const metadata = {
-  title: `${entry.data.title} - Your Brand`,
+  title: getPageTitle(entry.data.title),
   description: entry.data.description,
-  openGraph: {
-    title: entry.data.title,
-    description: entry.data.description,
-    type: 'article',
-  },
 };
 ---
 
 <PageLayout metadata={metadata}>
-  {sections.map((section, index) => {
-    const variant = getSectionVariant(section.section);
-    
-    // Render Hero section with Hero component
-    if (variant === 'hero') {
-      return (
-        <Hero
-          title={section.title}
-          subtitle={section.description}
-          actions={section.ctaText && section.ctaLink ? [{
-            text: section.ctaText,
-            href: section.ctaLink,
-            variant: 'primary'
-          }] : []}
-        />
-      );
-    }
-    
-    // Render Features section with Features component
-    if (variant === 'features' && section.features) {
-      return (
-        <section class="py-16 bg-gray-50">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12"> 
-              {section.eyebrow && (
-                <h4 class="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">
-                  {section.eyebrow}
-                </h4>
-              )}
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {section.title} 
-              </h2>
-              <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                {section.description}
-              </p>
-            </div>
-            <Features 
-              title=""
-              subtitle=""
-              features={section.features}
+  {
+    sections.map((section: any) => {
+      // Hero Section
+      if (section.section === "Hero") {
+        return (
+          <Hero
+            tagline={section.eyebrow}
+            title={section.title}
+            subtitle={section.description}
+            image={section.image}
+            actions={
+              section.ctaText && section.ctaLink
+                ? [
+                    {
+                      text: section.ctaText,
+                      href: section.ctaLink,
+                      variant: "primary",
+                    },
+                  ]
+                : []
+            }
+          />
+        );
+      }
+
+      // FAQs Section
+      if (section.section === "FAQs" && section.faqs) {
+        return <FAQs title={section.title} faqs={section.faqs} />;
+      }
+
+      // Map Section
+      if (section.section === "Map" && section.locations) {
+        return (
+          <MapSection
+            title={section.title}
+            description={section.description}
+            locations={section.locations}
+          />
+        );
+      }
+
+      // VenueNetwork Section (two-column with image and key points)
+      if (section.section === "VenueNetwork") {
+        return (
+          <VenueNetwork
+            title={section.title}
+            eyebrow={section.eyebrow}
+            description={section.description}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+            image={section.image}
+            keyPoints={section.keyPoints}
+          />
+        );
+      }
+
+      // CustomWebsites Section (content with image layout)
+      if (section.section === "CustomWebsites") {
+        return (
+          <ContentWithImage
+            title={section.title}
+            eyebrow={section.eyebrow}
+            description={section.description}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+            image={section.image}
+            imagePosition={section.imagePosition}
+            background={section.background}
+          />
+        );
+      }
+
+      // BoostVisibility Section (image + features grid)
+      if (section.section === "BoostVisibility") {
+        return (
+          <BoostVisibility
+            title={section.title}
+            description={section.description}
+            image={section.image}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+            features={section.features || []}
+          />
+        );
+      }
+
+      // WhyChooseUs / Overview / Cornerstone Sections (centered text with key points)
+      if (
+        section.section === "WhyChooseUs" ||
+        section.section === "Overview" ||
+        section.section === "Cornerstone"
+      ) {
+        return (
+          <WhyChooseUs
+            title={section.title}
+            description={section.description}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+            keyPoints={section.keyPoints}
+          />
+        );
+      }
+
+      // Features Sections (DesignProcess, ServiceApproach, TwoColumnFeatures)
+      if (
+        section.features &&
+        (section.section === "DesignProcess" ||
+          section.section === "ServiceApproach" ||
+          section.section === "TwoColumnFeatures")
+      ) {
+        // Use ImageCards for DesignProcess (has images)
+        if (section.section === "DesignProcess") {
+          return (
+            <ImageCards
+              eyebrow={section.eyebrow}
+              title={section.title}
+              description={section.description}
+              cards={section.features}
+              ctaText={section.ctaText}
+              ctaLink={section.ctaLink}
             />
-            {section.ctaText && section.ctaLink && (
-              <div class="text-center mt-12">
-                <a 
-                  href={section.ctaLink} 
-                  class="inline-block px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
-                >
-                  {section.ctaText}
-                </a>
-              </div>
-            )}
-          </div>
-        </section>
-      );
-    }
-    
-    // Render other sections with ContentSection component
-    return (
-      <ContentSection 
-        sectionData={section}
-        variant={variant}
-      />
-    );
-  })}
-
-  <!-- Render MDX content if it exists and has meaningful content -->
-  {Content && (
-    <section class="py-16">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="prose prose-lg max-w-none">
-          <Content />
-        </div>
-      </div>
-    </section>
-  )}
-
-  <CallToAction />
-</PageLayout>
-
-<style>
-  /* Performance optimization: Preload critical fonts */
-  @font-face {
-    font-display: swap;
-  }
-  
-  /* Responsive image optimization */
-  img {
-    max-width: 100%;
-    height: auto;
-    loading: lazy;
-  }
-  
-  /* Smooth scrolling for better UX */
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Focus styles for accessibility */
-  a:focus,
-  button:focus {
-    outline: 2px solid #3b82f6;
-    outline-offset: 2px;
-  }
-</style>
-
-<script>
-  // Performance optimization: Intersection Observer for lazy loading
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const img = entry.target as HTMLImageElement;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-            observer.unobserve(img);
-          }
+          );
         }
-      });
-    });
-    
-    document.querySelectorAll('img[data-src]').forEach((img) => {
-      observer.observe(img);
-    });
+        // Use FeaturesSection for others (no images)
+        return (
+          <FeaturesSection
+            eyebrow={section.eyebrow}
+            title={section.title}
+            description={section.description}
+            features={section.features}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+          />
+        );
+      }
+
+      return null;
+    })
   }
-  
-  // Error handling for broken images
-  document.querySelectorAll('img').forEach((img) => {
-    img.addEventListener('error', () => {
-      img.style.display = 'none';
-      console.warn(`Failed to load image: ${img.src}`);
-    });
-  });
-</script>
+
+  <CallToAction
+    title={entry.data.ctaText ? undefined : "Ready to Get Started?"}
+    subtitle={entry.data.ctaText
+      ? undefined
+      : "Contact us today to discuss your project and see how we can help your business grow."}
+    actions={[
+      {
+        text: entry.data.ctaText || "Get In Touch",
+        href: entry.data.ctaLink || "/contact",
+        variant: "primary",
+      },
+    ]}
+  />
+</PageLayout>

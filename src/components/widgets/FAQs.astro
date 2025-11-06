@@ -45,7 +45,7 @@ const { title, faqs = [] } = Astro.props;
               </svg>
             </summary>
             <div class="px-6 pb-6 text-gray-600">
-              <p>{faq.answer}</p>
+              <p set:html={faq.answer} />
             </div>
           </details>
         ))

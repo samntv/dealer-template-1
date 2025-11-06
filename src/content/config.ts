@@ -58,7 +58,7 @@ const solutions = defineCollection({
         z.object({
           section: z.string(),
           title: z.string(),
-          description: z.string(),
+          description: z.string().optional(),
           eyebrow: z.string().optional(),
           image: z.string().optional(),
           background: z.string().optional(),

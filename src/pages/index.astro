@@ -3,9 +3,8 @@ import { getEntry } from "astro:content";
 import PageLayout from "~/layouts/PageLayout.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import ServicesGrid from "~/components/widgets/ServicesGrid.astro";
-import VenueNetwork from "~/components/widgets/VenueNetwork.astro";
+import ContentWithKeypoints from "~/components/widgets/ContentWithKeypoints.astro";
 import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
-import WhyChooseUs from "~/components/widgets/WhyChooseUs.astro";
 import CallToAction from "~/components/widgets/CallToAction.astro";
 import FAQs from "~/components/widgets/FAQs.astro";
 import MapSection from "~/components/widgets/MapSection.astro";
@@ -16,12 +15,15 @@ const { sections } = homeContent.data;
 
 // Helper to find section by name
 const getSection = (name: string) => sections.find((s) => s.section === name);
+// Helper to find section by name and order
+const getSectionByOrder = (name: string, order: number) => 
+  sections.find((s) => s.section === name && s.order === order);
 
 const heroSection = getSection("Hero");
 const servicesGridSection = getSection("ServicesGrid");
-const venueNetworkSection = getSection("VenueNetwork");
+const venueNetworkSection = getSectionByOrder("ContentWithKeypoints", 3);
 const boostVisibilitySection = getSection("BoostVisibility");
-const whyChooseUsSection = getSection("WhyChooseUs");
+const whyChooseUsSection = getSectionByOrder("ContentWithKeypoints", 5);
 const ctaBannerSection = getSection("CTABanner");
 const faqsSection = getSection("FAQs");
 const mapSection = getSection("Map");
@@ -61,14 +63,13 @@ const finalCTASection = getSection("FinalCTA");
 
   {
     venueNetworkSection && (
-      <VenueNetwork
+      <ContentWithKeypoints
         title={venueNetworkSection.title}
-        eyebrow={venueNetworkSection.eyebrow}
         description={venueNetworkSection.description}
         ctaText={venueNetworkSection.ctaText}
         ctaLink={venueNetworkSection.ctaLink}
-        image={venueNetworkSection.image}
         keyPoints={venueNetworkSection.keyPoints}
+        image={venueNetworkSection.image}
       />
     )
   }
@@ -88,12 +89,13 @@ const finalCTASection = getSection("FinalCTA");
 
   {
     whyChooseUsSection && (
-      <WhyChooseUs
+      <ContentWithKeypoints
         title={whyChooseUsSection.title}
         description={whyChooseUsSection.description}
         ctaText={whyChooseUsSection.ctaText}
         ctaLink={whyChooseUsSection.ctaLink}
         keyPoints={whyChooseUsSection.keyPoints}
+        image={whyChooseUsSection.image}
       />
     )
   }

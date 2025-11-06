@@ -5,12 +5,12 @@ import CallToAction from "~/components/widgets/CallToAction.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import FAQs from "~/components/widgets/FAQs.astro";
 import MapSection from "~/components/widgets/MapSection.astro";
-import VenueNetwork from "~/components/widgets/VenueNetwork.astro";
+import ContentWithKeypoints from "~/components/widgets/ContentWithKeypoints.astro";
 import ContentWithImage from "~/components/widgets/ContentWithImage.astro";
 import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
-import WhyChooseUs from "~/components/widgets/WhyChooseUs.astro";
+import CTALight from "~/components/widgets/CTALight.astro";
 import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
-import ImageCards from "~/components/widgets/ImageCards.astro";
+import FeaturesWithImage from "~/components/widgets/FeaturesWithImage.astro";
 import { getPageTitle } from "~/utils/config";
 
 export async function getStaticPaths() {
@@ -82,10 +82,10 @@ const metadata = {
         );
       }
 
-      // VenueNetwork Section (two-column with image and key points)
-      if (section.section === "VenueNetwork") {
+      // ContentWithKeypoints Section (two-column with image and key points)
+      if (section.section === "ContentWithKeypoints") {
         return (
-          <VenueNetwork
+          <ContentWithKeypoints
             title={section.title}
             eyebrow={section.eyebrow}
             description={section.description}
@@ -98,7 +98,7 @@ const metadata = {
       }
 
       // CustomWebsites Section (content with image layout)
-      if (section.section === "CustomWebsites") {
+      if (section.section === "ContentWithImage") {
         return (
           <ContentWithImage
             title={section.title}
@@ -129,17 +129,14 @@ const metadata = {
 
       // WhyChooseUs / Overview / Cornerstone Sections (centered text with key points)
       if (
-        section.section === "WhyChooseUs" ||
-        section.section === "Overview" ||
-        section.section === "Cornerstone"
+        section.section === "CTALight"
       ) {
         return (
-          <WhyChooseUs
+          <CTALight
             title={section.title}
             description={section.description}
-            ctaText={section.ctaText}
-            ctaLink={section.ctaLink}
-            keyPoints={section.keyPoints}
+            ctaText={section.ctaText || "Get In Touch"}
+            ctaLink={section.ctaLink || "/contact"}
           />
         );
       }
@@ -147,14 +144,13 @@ const metadata = {
       // Features Sections (DesignProcess, ServiceApproach, TwoColumnFeatures)
       if (
         section.features &&
-        (section.section === "DesignProcess" ||
-          section.section === "ServiceApproach" ||
-          section.section === "TwoColumnFeatures")
+        (section.section === "FeaturesWithImage" ||
+          section.section === "FeaturesSection")
       ) {
         // Use ImageCards for DesignProcess (has images)
-        if (section.section === "DesignProcess") {
+        if (section.section === "FeaturesWithImage") {
           return (
-            <ImageCards
+            <FeaturesWithImage
               eyebrow={section.eyebrow}
               title={section.title}
               description={section.description}

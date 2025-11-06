@@ -49,6 +49,7 @@ const solutions = defineCollection({
     description: z.string(),
     category: z.enum(["foundational", "lead-gen"]),
     order: z.number().optional(),
+    icon: z.string().optional(),
     ctaText: z.string().optional(),
     ctaLink: z.string().optional(),
     image: z.string().optional(),

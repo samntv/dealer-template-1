@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 import { headerData } from "~/navigation";
 import { getPermalink } from "~/utils/permalinks";
 import { SITE_NAME } from "~/utils/config";
@@ -42,6 +43,7 @@ const links = headerData.links.map((link: any) => {
             ...sublink,
             links: foundational.map((item) => ({
               text: item.data.title,
+              icon: item.data.icon,
               href: getPermalink(
                 `/solutions/foundational/${item.slug.replace("foundational/", "")}`
               ),
@@ -53,6 +55,7 @@ const links = headerData.links.map((link: any) => {
             ...sublink,
             links: leadGen.map((item) => ({
               text: item.data.title,
+              icon: item.data.icon,
               href: getPermalink(
                 `/solutions/lead-gen/${item.slug.replace("lead-gen/", "")}`
               ),
@@ -142,9 +145,15 @@ const { actions = [] } = headerData;
                                     {sublink.links.map((nestedLink) => (
                                       <a
                                         href={nestedLink.href}
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                        class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                                       >
-                                        {nestedLink.text}
+                                        {nestedLink.icon && (
+                                          <Icon
+                                            name={nestedLink.icon}
+                                            class="w-4 h-4 flex-shrink-0"
+                                          />
+                                        )}
+                                        <span>{nestedLink.text}</span>
                                       </a>
                                     ))}
                                   </div>
@@ -255,9 +264,15 @@ const { actions = [] } = headerData;
                             {sublink.links.map((nestedLink) => (
                               <a
                                 href={nestedLink.href}
-                                class="block px-3 py-2 text-xs text-gray-500 hover:bg-gray-50 hover:text-blue-600 rounded-md"
+                                class="flex items-center gap-2 px-3 py-2 text-xs text-gray-500 hover:bg-gray-50 hover:text-blue-600 rounded-md"
                               >
-                                {nestedLink.text}
+                                {nestedLink.icon && (
+                                  <Icon
+                                    name={nestedLink.icon}
+                                    class="w-3.5 h-3.5 flex-shrink-0"
+                                  />
+                                )}
+                                <span>{nestedLink.text}</span>
                               </a>
                             ))}
                           </div>

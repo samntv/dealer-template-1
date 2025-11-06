@@ -72,9 +72,7 @@ const {
                 </div>
               )}
               {card.title && (
-                <h3 class="text-lg font-bold text-gray-900 mb-2 text-center">
-                  {card.title}
-                </h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-2 text-center" set:html={card.title} />
               )}
               {card.description && (
                 <p class="text-sm text-gray-600 text-center">

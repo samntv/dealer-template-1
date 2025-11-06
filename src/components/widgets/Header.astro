@@ -29,6 +29,9 @@ const links = headerData.links.map((link: any) => {
       ...link,
       links: sortedBillboards.map((item) => ({
         text: item.data.title,
+        description: item.data.description,
+        icon: item.data.icon,
+        thumbnail: item.data.thumbnail,
         href: getPermalink(`/indoor-billboards/${item.slug}`),
       })),
     };
@@ -43,7 +46,9 @@ const links = headerData.links.map((link: any) => {
             ...sublink,
             links: foundational.map((item) => ({
               text: item.data.title,
+              description: item.data.description,
               icon: item.data.icon,
+              thumbnail: item.data.thumbnail,
               href: getPermalink(
                 `/solutions/foundational/${item.slug.replace("foundational/", "")}`
               ),
@@ -55,7 +60,9 @@ const links = headerData.links.map((link: any) => {
             ...sublink,
             links: leadGen.map((item) => ({
               text: item.data.title,
+              description: item.data.description,
               icon: item.data.icon,
+              thumbnail: item.data.thumbnail,
               href: getPermalink(
                 `/solutions/lead-gen/${item.slug.replace("lead-gen/", "")}`
               ),
@@ -87,16 +94,19 @@ const { actions = [] } = headerData;
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex md:items-center md:space-x-4">
-        <nav class="flex items-center space-x-1" aria-label="Main navigation">
+        <nav
+          class="flex items-center space-x-1 relative"
+          aria-label="Main navigation"
+        >
           {
-            links.map((link) => (
-              <div class="relative group">
+            links.map((link, index) => (
+              <div class="relative" data-dropdown={`dropdown-${index}`}>
                 {link.links && link.links.length > 0 ? (
                   <>
-                    <button class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 inline-flex items-center">
+                    <button class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 inline-flex items-center">
                       {link.text}
                       <svg
-                        class="ml-1 h-4 w-4"
+                        class="ml-1 h-4 w-4 transition-transform"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -109,25 +119,100 @@ const { actions = [] } = headerData;
                         />
                       </svg>
                     </button>
-                    <div class="absolute left-0 mt-0 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                      <div class="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
-                        <a
-                          href={link.href}
-                          class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                        >
-                          Overview
-                        </a>
-                        {link.links.map((sublink) => (
-                          <div class="relative group/nested">
-                            {sublink.links && sublink.links.length > 0 ? (
-                              <>
-                                <a
-                                  href={sublink.href}
-                                  class="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                                >
-                                  {sublink.text}
+                    {/* Mega Menu for Solutions */}
+                    {link.text === "Solutions" ? (
+                      <div class="dropdown-menu absolute left-1/2 -translate-x-1/2 mt-2 xl:w-[1024px] lg:w-[600px] w-[400px] max-w-[calc(100vw-2rem)] opacity-0 invisible pointer-events-none transition-all duration-200 z-50">
+                        <div class="rounded-xl shadow-2xl bg-white ring-1 ring-gray-200 overflow-hidden">
+                          <div class="grid xl:grid-cols-3 grid-cols-1 xl:divide-x divide-gray-100">
+                            {/* Categories Column */}
+                            <div class="xl:col-span-2 p-6">
+                              <div class="grid xl:grid-cols-2 grid-cols-1 gap-x-6 gap-y-4">
+                                {link.links.map((sublink) => (
+                                  <div>
+                                    <a
+                                      href={sublink.href}
+                                      class="inline-flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-wider mb-4 hover:text-blue-700"
+                                    >
+                                      {sublink.text}
+                                      <svg
+                                        class="w-3 h-3"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M9 5l7 7-7 7"
+                                        />
+                                      </svg>
+                                    </a>
+                                    {sublink.links &&
+                                      sublink.links.length > 0 && (
+                                        <div class="space-y-1">
+                                          {sublink.links.map((nestedLink) => (
+                                            <a
+                                              href={nestedLink.href}
+                                              class="group/item flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 transition-all"
+                                            >
+                                              {nestedLink.icon && (
+                                                <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover/item:bg-blue-600 transition-colors">
+                                                  <Icon
+                                                    name={nestedLink.icon}
+                                                    class="w-5 h-5 text-blue-600 group-hover/item:text-white transition-colors"
+                                                  />
+                                                </div>
+                                              )}
+                                              <div class="flex-1 min-w-0">
+                                                <div class="text-sm font-semibold text-gray-900 group-hover/item:text-blue-600 transition-colors">
+                                                  {nestedLink.text}
+                                                </div>
+                                                {nestedLink.description && (
+                                                  <div class="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                                                    {nestedLink.description}
+                                                  </div>
+                                                )}
+                                              </div>
+                                            </a>
+                                          ))}
+                                        </div>
+                                      )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Featured Section */}
+                            <div class="hidden xl:block bg-gradient-to-br from-blue-50 to-indigo-50 p-8">
+                              <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-4">
+                                Featured
+                              </div>
+                              <a
+                                href="/solutions/foundational/website-design"
+                                class="group block"
+                              >
+                                <div class="relative h-32 rounded-lg overflow-hidden mb-4 shadow-md">
+                                  <img
+                                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
+                                    alt="Website Design"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  />
+                                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                  <div class="absolute bottom-3 left-3 right-3">
+                                    <div class="text-white font-bold text-sm">
+                                      Website Design
+                                    </div>
+                                  </div>
+                                </div>
+                                <p class="text-xs text-gray-600 mb-4">
+                                  Custom websites that drive results and grow
+                                  your business online.
+                                </p>
+                                <span class="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 group-hover:gap-2 transition-all">
+                                  Learn More
                                   <svg
-                                    class="h-4 w-4"
+                                    class="w-3 h-3"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -139,38 +224,67 @@ const { actions = [] } = headerData;
                                       d="M9 5l7 7-7 7"
                                     />
                                   </svg>
-                                </a>
-                                <div class="absolute left-full top-0 w-64 ml-1 opacity-0 invisible group-hover/nested:opacity-100 group-hover/nested:visible transition-all duration-200">
-                                  <div class="rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1">
-                                    {sublink.links.map((nestedLink) => (
-                                      <a
-                                        href={nestedLink.href}
-                                        class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                                      >
-                                        {nestedLink.icon && (
-                                          <Icon
-                                            name={nestedLink.icon}
-                                            class="w-4 h-4 flex-shrink-0"
-                                          />
-                                        )}
-                                        <span>{nestedLink.text}</span>
-                                      </a>
-                                    ))}
-                                  </div>
-                                </div>
-                              </>
-                            ) : (
-                              <a
-                                href={sublink.href}
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                              >
-                                {sublink.text}
+                                </span>
                               </a>
-                            )}
+                            </div>
                           </div>
-                        ))}
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      /* Modern dropdown for other menus - auto-adjust position */
+                      <div class="dropdown-menu absolute left-0 lg:left-auto lg:right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] opacity-0 invisible pointer-events-none transition-all duration-200 z-50">
+                        <div class="rounded-xl shadow-2xl bg-white ring-1 ring-gray-200 overflow-hidden">
+                          <div class="p-6">
+                            <a
+                              href={link.href}
+                              class="inline-flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-wider mb-4 hover:text-blue-700"
+                            >
+                              Overview
+                              <svg
+                                class="w-3 h-3"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"
+                                />
+                              </svg>
+                            </a>
+                            <div class="space-y-1">
+                              {link.links.map((sublink) => (
+                                <a
+                                  href={sublink.href}
+                                  class="group/item flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 transition-all"
+                                >
+                                  {sublink.icon && (
+                                    <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover/item:bg-blue-600 transition-colors">
+                                      <Icon
+                                        name={sublink.icon}
+                                        class="w-5 h-5 text-blue-600 group-hover/item:text-white transition-colors"
+                                      />
+                                    </div>
+                                  )}
+                                  <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-semibold text-gray-900 group-hover/item:text-blue-600 transition-colors">
+                                      {sublink.text}
+                                    </div>
+                                    {sublink.description && (
+                                      <div class="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                                        {sublink.description}
+                                      </div>
+                                    )}
+                                  </div>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <a
@@ -325,6 +439,93 @@ const { actions = [] } = headerData;
     });
   }
 
+  function initSmartDropdowns() {
+    // Click-based dropdown navigation
+    const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+
+    dropdownToggles.forEach((toggle) => {
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const parent = toggle.closest("[data-dropdown]");
+        const dropdown = parent?.querySelector(".dropdown-menu");
+        const arrow = toggle.querySelector("svg");
+
+        if (!dropdown) return;
+
+        // Close all other dropdowns
+        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+          if (menu !== dropdown) {
+            menu.classList.remove(
+              "opacity-100",
+              "visible",
+              "pointer-events-auto"
+            );
+            menu.classList.add("opacity-0", "invisible", "pointer-events-none");
+          }
+        });
+
+        // Reset all arrows
+        document.querySelectorAll(".dropdown-toggle svg").forEach((svg) => {
+          if (svg !== arrow) {
+            svg.classList.remove("rotate-180");
+          }
+        });
+
+        // Toggle current dropdown
+        const isOpen = dropdown.classList.contains("opacity-100");
+        if (isOpen) {
+          dropdown.classList.remove(
+            "opacity-100",
+            "visible",
+            "pointer-events-auto"
+          );
+          dropdown.classList.add(
+            "opacity-0",
+            "invisible",
+            "pointer-events-none"
+          );
+          arrow?.classList.remove("rotate-180");
+        } else {
+          dropdown.classList.remove(
+            "opacity-0",
+            "invisible",
+            "pointer-events-none"
+          );
+          dropdown.classList.add(
+            "opacity-100",
+            "visible",
+            "pointer-events-auto"
+          );
+          arrow?.classList.add("rotate-180");
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-dropdown]")) {
+        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+          menu.classList.remove(
+            "opacity-100",
+            "visible",
+            "pointer-events-auto"
+          );
+          menu.classList.add("opacity-0", "invisible", "pointer-events-none");
+        });
+        document.querySelectorAll(".dropdown-toggle svg").forEach((svg) => {
+          svg.classList.remove("rotate-180");
+        });
+      }
+    });
+  }
+
   initMobileMenu();
-  document.addEventListener("astro:after-swap", initMobileMenu);
+  initSmartDropdowns();
+  document.addEventListener("astro:after-swap", () => {
+    initMobileMenu();
+    initSmartDropdowns();
+  });
 </script>

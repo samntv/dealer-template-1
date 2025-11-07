@@ -51,7 +51,6 @@ if (background) {
     bgClass = background;
     isDarkBg =
       background.includes("primary") ||
-      background.includes("blue-") ||
       background.includes("gray-8") ||
       background.includes("gray-9") ||
       background.includes("black");
@@ -67,7 +66,7 @@ if (background) {
 // Text color classes based on background
 const textColorClass = isDarkBg ? "text-white" : "text-gray-900";
 const subtextColorClass = isDarkBg ? "text-gray-100" : "text-gray-600";
-const eyebrowColorClass = isDarkBg ? "text-blue-200" : "text-blue-600";
+const eyebrowColorClass = isDarkBg ? "text-primary-lighter" : "text-primary";
 ---
 
 <section
@@ -107,7 +106,7 @@ const eyebrowColorClass = isDarkBg ? "text-blue-200" : "text-blue-600";
           ctaText && ctaLink && (
             <a
               href={ctaLink}
-              class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition text-sm sm:text-base"
+              class="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition text-sm sm:text-base"
             >
               {ctaText}
             </a>

@@ -40,14 +40,14 @@ site:
 
 ```yaml
 site:
-  name: Denver Marketing Co
+  name: NTXIDB
 ```
 
 **Result:**
 
-- Header: "Denver Marketing Co"
-- Footer: "Made by Denver Marketing Co · All rights reserved."
-- Page Title: "Website Design — Denver Marketing Co"
+- Header: "NTXIDB"
+- Footer: "Made by NTXIDB · All rights reserved."
+- Page Title: "Website Design — NTXIDB"
 
 ## 🔄 Other Global Settings in config.yaml
 

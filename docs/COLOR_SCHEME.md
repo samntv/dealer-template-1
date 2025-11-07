@@ -6,10 +6,10 @@ Edit these 4 colors in `src/styles/global.css` to change the entire site:
 
 ```css
 :root {
-  --color-primary-dark: #0c2b4e; /* Dark Navy Blue */
-  --color-primary: #1a3d64; /* Medium Navy Blue */
-  --color-primary-light: #1d546c; /* Teal Blue */
-  --color-neutral: #f4f4f4; /* Light Gray */
+  --color-primary-dark: #2C3930; /* Dark Green */
+  --color-primary: #3F4F44; /* Medium Green */
+  --color-primary-light: #3F4F44; /* Medium Green */
+  --color-neutral: #DCD7C9; /* Beige/Cream */
 }
 ```
 
@@ -57,17 +57,17 @@ Edit these 4 colors in `src/styles/global.css` to change the entire site:
 
 ### Primary Colors
 
-- `primary` - #1A3D64 (Medium Navy)
-- `primary-dark` - #0C2B4E (Dark Navy)
-- `primary-darker` - #081b30 (Darkest Navy)
-- `primary-light` - #1D546C (Teal Blue)
-- `primary-lighter` - #2a5a8f (Light Blue)
+- `primary` - #3F4F44 (Medium Green)
+- `primary-dark` - #2C3930 (Dark Green)
+- `primary-darker` - #1f2821 (Darkest Green)
+- `primary-light` - #3F4F44 (Medium Green)
+- `primary-lighter` - #5a6a5d (Light Green)
 
 ### Neutral Colors
 
-- `neutral` - #F4F4F4 (Light Gray)
-- `neutral-dark` - #e0e0e0 (Medium Gray)
-- `neutral-darker` - #cccccc (Dark Gray)
+- `neutral` - #DCD7C9 (Beige/Cream)
+- `neutral-dark` - #ccc7bb (Medium Beige)
+- `neutral-darker` - #bbb5a7 (Dark Beige)
 
 ### Blue Alias (for existing components)
 
@@ -129,10 +129,10 @@ All `blue-*` classes now map to your custom colors:
 
 ```css
 :root {
-  --color-primary-dark: #1a1a2e; /* Change to dark purple */
-  --color-primary: #16213e; /* Change to purple */
-  --color-primary-light: #0f3460; /* Change to blue */
-  --color-neutral: #f8f9fa; /* Change to off-white */
+  --color-primary-dark: #2C3930; /* Dark Green */
+  --color-primary: #3F4F44; /* Medium Green */
+  --color-primary-light: #3F4F44; /* Medium Green */
+  --color-neutral: #DCD7C9; /* Beige/Cream */
 }
 ```
 

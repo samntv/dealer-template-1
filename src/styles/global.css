@@ -6,19 +6,19 @@
    ============================================ */
 @theme {
   /* Your Brand Colors */
-  --color-primary-dark: #0c2b4e;
-  --color-primary: #1a3d64;
-  --color-primary-light: #1d546c;
-  --color-neutral: #f4f4f4;
+  --color-primary-dark: #2C3930;
+  --color-primary: #3F4F44;
+  --color-primary-light: #3F4F44;
+  --color-neutral: #DCD7C9;
 
   /* Auto-generated shades */
-  --color-primary-darker: #081b30;
-  --color-primary-lighter: #2a5a8f;
-  --color-neutral-dark: #e0e0e0;
-  --color-neutral-darker: #cccccc;
+  --color-primary-darker: #1f2821;
+  --color-primary-lighter: #5a6a5d;
+  --color-neutral-dark: #ccc7bb;
+  --color-neutral-darker: #bbb5a7;
 
   /* Map to Tailwind color system */
-  --color-primary-50: #f0f7ff;
+  --color-primary-50: #f5f6f5;
   --color-primary-100: var(--color-neutral);
   --color-primary-200: var(--color-neutral-dark);
   --color-primary-300: var(--color-neutral-darker);
@@ -27,7 +27,7 @@
   --color-primary-600: var(--color-primary);
   --color-primary-700: var(--color-primary-dark);
   --color-primary-800: var(--color-primary-darker);
-  --color-primary-900: #081b30;
+  --color-primary-900: #1a1f1c;
 
   /* Map blue to primary (for existing components) */
   --color-blue-50: var(--color-primary-50);

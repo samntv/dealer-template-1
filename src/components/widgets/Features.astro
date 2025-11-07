@@ -22,7 +22,7 @@ const { title, subtitle, features = [] } = Astro.props;
       (title || subtitle) && (
         <div class="text-center max-w-3xl mx-auto mb-16">
           {title && (
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary-dark mb-4">
               {title}
             </h2>
           )}
@@ -34,13 +34,13 @@ const { title, subtitle, features = [] } = Astro.props;
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
         features.map((feature) => (
-          <div class="p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-lg transition">
+          <div class="p-6 rounded-lg border border-gray-200 hover:border-primary-light hover:shadow-lg transition">
             {feature.icon && (
-              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <Icon name={feature.icon} class="w-6 h-6 text-blue-600" />
+              <div class="w-12 h-12 bg-neutral rounded-lg flex items-center justify-center mb-4">
+                <Icon name={feature.icon} class="w-6 h-6 text-primary" />
               </div>
             )}
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">
+            <h3 class="text-xl font-semibold text-primary-dark mb-2">
               {feature.title}
             </h3>
             <p class="text-gray-600">{feature.description}</p>

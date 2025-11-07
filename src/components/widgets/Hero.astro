@@ -37,17 +37,17 @@ const {
   )}
   
   <!-- Fallback gradient (mobile or no image) -->
-  <div class={`absolute inset-0 z-0 ${image ? 'md:hidden' : ''} bg-gradient-to-b from-blue-50 to-white`}></div>
+  <div class={`absolute inset-0 z-0 ${image ? 'md:hidden' : ''} bg-gradient-to-b from-neutral to-white`}></div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto">
       {tagline && (
-        <p class={`font-semibold text-sm uppercase tracking-wide mb-4 ${image ? 'md:text-blue-200 text-blue-600' : 'text-blue-600'}`}>
+        <p class={`font-semibold text-sm uppercase tracking-wide mb-4 ${image ? 'md:text-primary-lighter text-primary' : 'text-primary'}`}>
           {tagline}
         </p>
       )}
       
-      <h1 class={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${image ? 'md:text-white text-gray-900' : 'text-gray-900'}`}>
+      <h1 class={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${image ? 'md:text-white text-primary-dark' : 'text-primary-dark'}`}>
         {title}
       </h1>
       
@@ -63,7 +63,7 @@ const {
               class={
                 action.variant === 'secondary'
                   ? 'px-8 py-3 text-base font-medium rounded-lg border-2 border-gray-300 text-gray-700 hover:border-gray-400 transition'
-                  : 'px-8 py-3 text-base font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition'
+                  : 'px-8 py-3 text-base font-medium rounded-lg bg-primary text-white hover:bg-primary-dark transition'
               }
             >
               {action.text}

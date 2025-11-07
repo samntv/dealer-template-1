@@ -12,7 +12,7 @@ const {
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-gray-900 text-gray-300">
+<footer class="bg-primary-dark text-neutral">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
       {
@@ -33,7 +33,7 @@ const currentYear = new Date().getFullYear();
       }
     </div>
 
-    <div class="border-t border-gray-800 pt-8">
+    <div class="border-t border-primary-darker pt-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <!-- Secondary Links -->
         {
@@ -59,7 +59,7 @@ const currentYear = new Date().getFullYear();
                 <a
                   href={link.href}
                   aria-label={link.ariaLabel}
-                  class="text-gray-400 hover:text-white transition"
+                  class="text-neutral-dark hover:text-white transition"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -73,7 +73,7 @@ const currentYear = new Date().getFullYear();
 
       {footNote && <div class="text-sm text-center mt-6" set:html={footNote} />}
 
-      <p class="text-sm text-center mt-4 text-gray-500">
+      <p class="text-sm text-center mt-4 text-neutral-darker">
         &copy; {currentYear}
         {SITE_NAME}. All rights reserved.
       </p>

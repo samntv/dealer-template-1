@@ -5,7 +5,7 @@ interface DesignSkill {
   title: string;
   description?: string;
   image?: string;
-  background?: string; // "dark-blue" | "light-blue" | "image"
+  background?: string; // "primary-dark" | "primary-light" | "image"
 }
 
 interface Props {
@@ -23,7 +23,7 @@ const { title, description, skills = [] } = Astro.props;
       (title || description) && (
         <div class="text-center max-w-3xl mx-auto mb-12">
           {title && (
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#002855]">{title}</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary-dark">{title}</h2>
           )}
           {description && (
             <p class="text-xl text-gray-600 mb-8">{description}</p>

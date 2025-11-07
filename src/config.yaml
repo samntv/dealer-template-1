@@ -1,28 +1,28 @@
 site:
-  name: Dealer Template 1
-  site: "https://yourdomain.com"
+  name: NTXIDB
+  site: "https://ntxidb.com"
   base: "/"
   trailingSlash: false
 
 # Default SEO metadata
 metadata:
   title:
-    default: Dealer Template 1
-    template: "%s — Dealer Template 1"
-  description: "Premium marketing solutions including website design, social media management, and indoor billboard advertising."
+    default: NTXIDB
+    template: "%s — NTXIDB"
+  description: "We are a local marketing company in Rockwall, Texas. Premium marketing solutions including website design, social media management, and indoor billboard advertising."
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: Dealer Template 1
+    site_name: NTXIDB
     images:
       - url: "~/assets/images/default.png"
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: "@yourbrand"
-    site: "@yourbrand"
+    handle: "@ntxidb"
+    site: "@ntxidb"
     cardType: summary_large_image
 
 i18n:

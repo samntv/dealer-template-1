@@ -59,11 +59,11 @@ export const footerData = {
       ],
     },
     {
-      title: "Resources",
+      title: "Contact Us",
       links: [
-        { text: "Blog", href: getPermalink("/blog") },
-        { text: "Case Studies", href: getPermalink("/case-studies") },
-        { text: "FAQs", href: getPermalink("/faqs") },
+        { text: "Rockwall, Texas", href: "#" },
+        { text: "903-420-1090", href: "tel:903-420-1090" },
+        { text: "BeSeen@NTXIDB.com", href: "mailto:BeSeen@NTXIDB.com" },
       ],
     },
   ],
@@ -72,12 +72,12 @@ export const footerData = {
     { text: "Privacy Policy", href: getPermalink("/privacy") },
   ],
   socialLinks: [
-    { ariaLabel: "X", icon: "tabler:brand-x", href: "#" },
-    { ariaLabel: "Instagram", icon: "tabler:brand-instagram", href: "#" },
-    { ariaLabel: "Facebook", icon: "tabler:brand-facebook", href: "#" },
-    { ariaLabel: "LinkedIn", icon: "tabler:brand-linkedin", href: "#" },
+    { ariaLabel: "LinkedIn", icon: "tabler:brand-linkedin", href: "https://www.linkedin.com/company/ntx-indoor-digital-billboards/" },
+    { ariaLabel: "Facebook", icon: "tabler:brand-facebook", href: "https://www.facebook.com/ntxbillboards/" },
+    { ariaLabel: "Instagram", icon: "tabler:brand-instagram", href: "https://www.instagram.com/ntxidb/" },
+    { ariaLabel: "YouTube", icon: "tabler:brand-youtube", href: "https://www.youtube.com/@ntxdigital" },
   ],
   footNote: `
-    Made by <a class="text-blue-600 underline dark:text-muted" href="${SITE_URL}">${SITE_NAME}</a> · All rights reserved.
+    Made by <a class="text-primary-lighter underline hover:text-white transition" href="${SITE_URL}">${SITE_NAME}</a> · All rights reserved.
   `,
 };

@@ -33,12 +33,12 @@ const {
       (eyebrow || title || description) && (
         <div class="text-center mb-8 sm:mb-12">
           {eyebrow && (
-            <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">
+            <p class="text-xs sm:text-sm font-semibold text-primary uppercase tracking-wide mb-2">
               {eyebrow}
             </p>
           )}
           {title && (
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-dark mb-4">
               {title}
             </h2>
           )}
@@ -67,12 +67,12 @@ const {
             )}
             <div class="p-6">
               {card.icon && (
-                <div class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center mb-4 mx-auto">
+                <div class="w-12 h-12 bg-primary-dark rounded-full flex items-center justify-center mb-4 mx-auto">
                   <Icon name={card.icon} class="w-6 h-6 text-white" />
                 </div>
               )}
               {card.title && (
-                <h3 class="text-lg font-bold text-gray-900 mb-2 text-center" set:html={card.title} />
+                <h3 class="text-lg font-bold text-primary-dark mb-2 text-center" set:html={card.title} />
               )}
               {card.description && (
                 <p class="text-sm text-gray-600 text-center">
@@ -90,7 +90,7 @@ const {
         <div class="text-center mt-8 sm:mt-12">
           <a
             href={ctaLink}
-            class="inline-block px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition text-sm sm:text-base"
+            class="inline-block px-6 py-3 sm:px-8 sm:py-4 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition text-sm sm:text-base"
           >
             {ctaText}
           </a>

@@ -11,6 +11,7 @@ import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
 import CTALight from "~/components/widgets/CTALight.astro";
 import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
 import FeaturesWithImage from "~/components/widgets/FeaturesWithImage.astro";
+import DesignSkillsGrid from "~/components/widgets/DesignSkillsGrid.astro";
 import { getPageTitle } from "~/utils/config";
 
 export async function getStaticPaths() {
@@ -32,7 +33,7 @@ type Props = {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-const sections = entry.data.sections || [];
+const sections = (entry.data.sections || []).sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
 
 const metadata = {
   title: getPageTitle(entry.data.title),
@@ -141,12 +142,23 @@ const metadata = {
         );
       }
 
+      // Design Skills Grid Section
+      if (section.section === "DesignSkillsGrid" && section.skills) {
+        return (
+          <DesignSkillsGrid
+            title={section.title}
+            description={section.description}
+            skills={section.skills}
+          />
+        );
+      }
+
       // Features Sections (DesignProcess, ServiceApproach, TwoColumnFeatures)
       if (
-        section.features &&
-        (section.section === "FeaturesWithImage" ||
-          section.section === "FeaturesSection")
+        section.section === "FeaturesWithImage" ||
+        section.section === "FeaturesSection"
       ) {
+        if (!section.features) return null;
         // Use ImageCards for DesignProcess (has images)
         if (section.section === "FeaturesWithImage") {
           return (

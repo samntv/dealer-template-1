@@ -9,6 +9,14 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), icon(), configIntegration()],
+  image: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
   vite: {
     plugins: [tailwindcss()],
     resolve: {

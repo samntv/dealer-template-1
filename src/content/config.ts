@@ -86,6 +86,16 @@ const solutions = defineCollection({
               })
             )
             .optional(),
+          skills: z
+            .array(
+              z.object({
+                title: z.string(),
+                description: z.string().optional(),
+                background: z.string().optional(),
+                image: z.string().optional(),
+              })
+            )
+            .optional(),
         })
       )
       .optional(),

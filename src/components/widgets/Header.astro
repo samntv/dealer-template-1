@@ -102,17 +102,22 @@ const { actions = [] } = headerData;
 ---
 
 <header
-  class="sticky top-0 z-40 flex-none mx-auto w-full bg-white border-b border-gray-200"
+  id="main-header"
+  class="sticky top-0 z-40 flex-none mx-auto w-full bg-white border-b border-gray-200 transition-all duration-300"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
+    <div
+      class="flex justify-between items-center h-20 transition-all duration-300"
+      id="header-content"
+    >
       <!-- Logo -->
       <div class="flex-shrink-0">
         <a href="/" class="flex items-center">
           <img
+            id="header-logo"
             src="https://ntxidb.com/wp-content/uploads/2024/08/NTX-Digital-Logo.png"
             alt={SITE_NAME}
-            class="h-10 w-auto"
+            class="h-12 w-auto transition-all duration-300"
           />
         </a>
       </div>
@@ -618,10 +623,42 @@ const { actions = [] } = headerData;
     });
   }
 
+  function initShrinkHeader() {
+    const header = document.getElementById("main-header");
+    const headerContent = document.getElementById("header-content");
+    const logo = document.getElementById("header-logo");
+    let lastScroll = 0;
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset;
+
+      if (currentScroll > 50) {
+        // Scrolled down - shrink
+        headerContent?.classList.remove("h-20");
+        headerContent?.classList.add("h-16");
+        logo?.classList.remove("h-12");
+        logo?.classList.add("h-9");
+        header?.classList.add("shadow-md");
+      } else {
+        // At top - expand
+        headerContent?.classList.remove("h-16");
+        headerContent?.classList.add("h-20");
+        logo?.classList.remove("h-9");
+        logo?.classList.add("h-12");
+        header?.classList.remove("shadow-md");
+      }
+
+      lastScroll = currentScroll;
+    });
+  }
+
   initMobileMenu();
   initSmartDropdowns();
+  initShrinkHeader();
+
   document.addEventListener("astro:after-swap", () => {
     initMobileMenu();
     initSmartDropdowns();
+    initShrinkHeader();
   });
 </script>

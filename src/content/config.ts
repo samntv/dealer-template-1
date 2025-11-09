@@ -96,6 +96,47 @@ const solutions = defineCollection({
               })
             )
             .optional(),
+          networks: z
+            .array(
+              z.object({
+                title: z.string(),
+                brands: z.array(
+                  z.object({
+                    name: z.string(),
+                    logo: z.string(),
+                  })
+                ),
+              })
+            )
+            .optional(),
+          formFields: z
+            .array(
+              z.object({
+                id: z.string(),
+                name: z.string(),
+                label: z.string(),
+                type: z.enum([
+                  "text",
+                  "email",
+                  "tel",
+                  "number",
+                  "textarea",
+                  "select",
+                  "checkbox",
+                  "radio",
+                ]),
+                placeholder: z.string().optional(),
+                required: z.boolean().optional(),
+                options: z.array(z.string()).optional(),
+                rows: z.number().optional(),
+                pattern: z.string().optional(),
+                helpText: z.string().optional(),
+                width: z.enum(["full", "half"]).optional(),
+              })
+            )
+            .optional(),
+          submitText: z.string().optional(),
+          submitAction: z.string().optional(),
         })
       )
       .optional(),

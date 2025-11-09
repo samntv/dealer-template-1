@@ -28,6 +28,11 @@ export const headerData = {
           href: getPermalink("/solutions/lead-gen"),
           links: "auto", // Will be populated from content collection
         },
+        {
+          text: "Branding & Awareness",
+          href: getPermalink("/solutions/branding-awareness"),
+          links: "auto", // Will be populated from content collection
+        },
       ],
     },
   ] as any[],
@@ -72,10 +77,26 @@ export const footerData = {
     { text: "Privacy Policy", href: getPermalink("/privacy") },
   ],
   socialLinks: [
-    { ariaLabel: "LinkedIn", icon: "tabler:brand-linkedin", href: "https://www.linkedin.com/company/ntx-indoor-digital-billboards/" },
-    { ariaLabel: "Facebook", icon: "tabler:brand-facebook", href: "https://www.facebook.com/ntxbillboards/" },
-    { ariaLabel: "Instagram", icon: "tabler:brand-instagram", href: "https://www.instagram.com/ntxidb/" },
-    { ariaLabel: "YouTube", icon: "tabler:brand-youtube", href: "https://www.youtube.com/@ntxdigital" },
+    {
+      ariaLabel: "LinkedIn",
+      icon: "tabler:brand-linkedin",
+      href: "https://www.linkedin.com/company/ntx-indoor-digital-billboards/",
+    },
+    {
+      ariaLabel: "Facebook",
+      icon: "tabler:brand-facebook",
+      href: "https://www.facebook.com/ntxbillboards/",
+    },
+    {
+      ariaLabel: "Instagram",
+      icon: "tabler:brand-instagram",
+      href: "https://www.instagram.com/ntxidb/",
+    },
+    {
+      ariaLabel: "YouTube",
+      icon: "tabler:brand-youtube",
+      href: "https://www.youtube.com/@ntxdigital",
+    },
   ],
   footNote: `
     Made by <a class="text-primary-lighter underline hover:text-white transition" href="${SITE_URL}">${SITE_NAME}</a> · All rights reserved.

@@ -47,7 +47,7 @@ const solutions = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum(["foundational", "lead-gen"]),
+    category: z.enum(["foundational", "lead-gen", "branding-awareness"]),
     order: z.number().optional(),
     icon: z.string().optional(),
     thumbnail: z.string().optional(),

@@ -148,6 +148,9 @@ const solutions = defineCollection({
             .optional(),
           submitText: z.string().optional(),
           submitAction: z.string().optional(),
+          locations: z.array(z.string()).optional(),
+          mapUrl: z.string().optional(),
+          viewMode: z.enum(["half", "full"]).optional(),
         })
       )
       .optional(),
@@ -261,6 +264,9 @@ const indoorBillboards = defineCollection({
             .optional(),
           submitText: z.string().optional(),
           submitAction: z.string().optional(),
+          locations: z.array(z.string()).optional(),
+          mapUrl: z.string().optional(),
+          viewMode: z.enum(["half", "full"]).optional(),
         })
       )
       .optional(),
@@ -322,6 +328,8 @@ const pages = defineCollection({
           )
           .optional(),
         locations: z.array(z.string()).optional(),
+        mapUrl: z.string().optional(),
+        viewMode: z.enum(["half", "full"]).optional(),
       })
     ),
     metadata: metadataDefinition(),

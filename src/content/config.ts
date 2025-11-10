@@ -165,6 +165,105 @@ const indoorBillboards = defineCollection({
     icon: z.string().optional(),
     thumbnail: z.string().optional(),
     image: z.string().optional(),
+    ctaText: z.string().optional(),
+    ctaLink: z.string().optional(),
+    sections: z
+      .array(
+        z.object({
+          section: z.string(),
+          title: z.string(),
+          description: z.string().optional(),
+          eyebrow: z.string().optional(),
+          image: z.string().optional(),
+          videoUrl: z.string().optional(),
+          videoPosition: z.string().optional(),
+          poster: z.string().optional(),
+          autoplay: z.boolean().optional(),
+          muted: z.boolean().optional(),
+          loop: z.boolean().optional(),
+          controls: z.boolean().optional(),
+          background: z.string().optional(),
+          imagePosition: z.string().optional(),
+          order: z.number().optional(),
+          ctaText: z.string().optional(),
+          ctaLink: z.string().optional(),
+          keyPoints: z.array(z.string()).optional(),
+          faqs: z
+            .array(
+              z.object({
+                question: z.string(),
+                answer: z.string(),
+              })
+            )
+            .optional(),
+          features: z
+            .array(
+              z.object({
+                title: z.string(),
+                description: z.string(),
+                image: z.string().optional(),
+                icon: z.string().optional(),
+              })
+            )
+            .optional(),
+          isCarousel: z.boolean().optional(),
+          itemsPerSlide: z.number().optional(),
+          carouselAutoplay: z.boolean().optional(),
+          carouselAutoplayDelay: z.number().optional(),
+          skills: z
+            .array(
+              z.object({
+                title: z.string(),
+                description: z.string().optional(),
+                background: z.string().optional(),
+                image: z.string().optional(),
+              })
+            )
+            .optional(),
+          networks: z
+            .array(
+              z.object({
+                title: z.string(),
+                brands: z.array(
+                  z.object({
+                    name: z.string(),
+                    logo: z.string(),
+                  })
+                ),
+              })
+            )
+            .optional(),
+          formFields: z
+            .array(
+              z.object({
+                id: z.string(),
+                name: z.string(),
+                label: z.string(),
+                type: z.enum([
+                  "text",
+                  "email",
+                  "tel",
+                  "number",
+                  "textarea",
+                  "select",
+                  "checkbox",
+                  "radio",
+                ]),
+                placeholder: z.string().optional(),
+                required: z.boolean().optional(),
+                options: z.array(z.string()).optional(),
+                rows: z.number().optional(),
+                pattern: z.string().optional(),
+                helpText: z.string().optional(),
+                width: z.enum(["full", "half"]).optional(),
+              })
+            )
+            .optional(),
+          submitText: z.string().optional(),
+          submitAction: z.string().optional(),
+        })
+      )
+      .optional(),
     metadata: metadataDefinition(),
   }),
 });

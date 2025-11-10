@@ -60,7 +60,7 @@ const sliderId = `slider-${Math.random().toString(36).substr(2, 9)}`;
     </button>
 
     <!-- Slider Track -->
-    <div class="overflow-hidden">
+    <div class="overflow-hidden py-4">
       <div
         class="slider-track flex transition-transform duration-500 ease-in-out"
         id={sliderId}
@@ -71,7 +71,7 @@ const sliderId = `slider-${Math.random().toString(36).substr(2, 9)}`;
         {
           brands.map((brand) => (
             <div
-              class="slider-item flex-shrink-0 px-4 flex items-center justify-center"
+              class="slider-item flex-shrink-0 px-6 flex items-center justify-center"
               style={`width: ${100 / itemsPerView}%`}
             >
               <div class="transition-transform duration-300 hover:scale-110">

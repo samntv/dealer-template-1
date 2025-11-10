@@ -10,6 +10,10 @@ export const headerData = {
       href: getPermalink("/"),
     },
     {
+      text: "About Us",
+      href: getPermalink("/about-us"),
+    },
+    {
       text: "Indoor Billboards",
       href: getPermalink("/indoor-billboards"),
       links: "auto", // Will be populated from content collection
@@ -36,7 +40,7 @@ export const headerData = {
       ],
     },
   ] as any[],
-  actions: [{ text: "Get In Touch", href: getPermalink("/contact") }],
+  actions: [{ text: "Get In Touch", href: getPermalink("/contact-us") }],
 };
 
 export const footerData = {
@@ -58,8 +62,8 @@ export const footerData = {
     {
       title: "Company",
       links: [
-        { text: "About", href: getPermalink("/about") },
-        { text: "Contact", href: getPermalink("/contact") },
+        { text: "About", href: getPermalink("/about-us") },
+        { text: "Contact", href: getPermalink("/contact-us") },
         { text: "Careers", href: getPermalink("/careers") },
       ],
     },

@@ -1,0 +1,92 @@
+---
+import { getEntry } from "astro:content";
+import PageLayout from "~/layouts/PageLayout.astro";
+import Hero from "~/components/widgets/Hero.astro";
+import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
+import MapSection from "~/components/widgets/MapSection.astro";
+import CTALight from "~/components/widgets/CTALight.astro";
+import { getPageTitle } from "~/utils/config";
+
+// Get contact-us content from MDX
+const contactContent = await getEntry("pages", "contact-us");
+const { sections } = contactContent.data;
+
+// Sort sections by order
+const sortedSections = sections.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+
+const metadata = {
+  title: contactContent.data.metadata?.title || getPageTitle(contactContent.data.title),
+  description: contactContent.data.metadata?.description || contactContent.data.description,
+};
+---
+
+<PageLayout metadata={metadata}>
+  {
+    sortedSections.map((section: any) => {
+      // Hero Section
+      if (section.section === "Hero") {
+        return (
+          <Hero
+            tagline={section.eyebrow}
+            title={section.title}
+            subtitle={section.description}
+            image={section.image}
+            actions={
+              section.ctaText && section.ctaLink
+                ? [
+                    {
+                      text: section.ctaText,
+                      href: section.ctaLink,
+                      variant: "primary",
+                    },
+                  ]
+                : []
+            }
+          />
+        );
+      }
+
+      // FeaturesSection
+      if (section.section === "FeaturesSection" && section.features) {
+        return (
+          <FeaturesSection
+            eyebrow={section.eyebrow}
+            title={section.title}
+            description={section.description}
+            features={section.features}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+          />
+        );
+      }
+
+      // Map Section
+      if (section.section === "Map") {
+        return (
+          <MapSection
+            title={section.title}
+            description={section.description}
+            locations={section.locations}
+            mapUrl={section.mapUrl}
+            viewMode={section.viewMode}
+          />
+        );
+      }
+
+      // CTALight Section
+      if (section.section === "CTALight") {
+        return (
+          <CTALight
+            title={section.title}
+            description={section.description}
+            ctaText={section.ctaText || "Get In Touch"}
+            ctaLink={section.ctaLink || "/contact-us"}
+          />
+        );
+      }
+
+      return null;
+    })
+  }
+</PageLayout>
+

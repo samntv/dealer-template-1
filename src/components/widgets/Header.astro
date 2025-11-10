@@ -133,10 +133,10 @@ const { actions = [] } = headerData;
               <div class="relative" data-dropdown={`dropdown-${index}`}>
                 {link.links && link.links.length > 0 ? (
                   <>
-                    <button class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center">
+                    <a href={link.href} class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center">
                       {link.text}
                       <svg
-                        class="ml-1 h-4 w-4 transition-transform"
+                        class="ml-1 h-4 w-4 transition-transform dropdown-arrow"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -148,7 +148,7 @@ const { actions = [] } = headerData;
                           d="M19 9l-7 7-7-7"
                         />
                       </svg>
-                    </button>
+                    </a>
                     {/* Mega Menu for Solutions */}
                     {link.text === "Solutions" ? (
                       <div class="dropdown-menu absolute left-1/2 -translate-x-1/2 mt-2 2xl:w-[1000px] xl:w-[550px] lg:w-[450px] w-[400px] max-w-[calc(100vw-2rem)] opacity-0 invisible pointer-events-none transition-all duration-200 z-50">
@@ -541,17 +541,19 @@ const { actions = [] } = headerData;
   }
 
   function initSmartDropdowns() {
-    // Click-based dropdown navigation
+    // Click-based dropdown navigation - arrow toggles, link navigates
     const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
 
     dropdownToggles.forEach((toggle) => {
-      toggle.addEventListener("click", (e) => {
+      const arrow = toggle.querySelector(".dropdown-arrow");
+      
+      // Arrow click toggles dropdown
+      arrow?.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         const parent = toggle.closest("[data-dropdown]");
         const dropdown = parent?.querySelector(".dropdown-menu");
-        const arrow = toggle.querySelector("svg");
 
         if (!dropdown) return;
 
@@ -568,7 +570,7 @@ const { actions = [] } = headerData;
         });
 
         // Reset all arrows
-        document.querySelectorAll(".dropdown-toggle svg").forEach((svg) => {
+        document.querySelectorAll(".dropdown-arrow").forEach((svg) => {
           if (svg !== arrow) {
             svg.classList.remove("rotate-180");
           }
@@ -587,7 +589,7 @@ const { actions = [] } = headerData;
             "invisible",
             "pointer-events-none"
           );
-          arrow?.classList.remove("rotate-180");
+          arrow.classList.remove("rotate-180");
         } else {
           dropdown.classList.remove(
             "opacity-0",
@@ -599,9 +601,11 @@ const { actions = [] } = headerData;
             "visible",
             "pointer-events-auto"
           );
-          arrow?.classList.add("rotate-180");
+          arrow.classList.add("rotate-180");
         }
       });
+      
+      // Link click navigates (default behavior, no preventDefault)
     });
 
     // Close dropdowns when clicking outside
@@ -616,7 +620,7 @@ const { actions = [] } = headerData;
           );
           menu.classList.add("opacity-0", "invisible", "pointer-events-none");
         });
-        document.querySelectorAll(".dropdown-toggle svg").forEach((svg) => {
+        document.querySelectorAll(".dropdown-arrow").forEach((svg) => {
           svg.classList.remove("rotate-180");
         });
       }

@@ -5,6 +5,7 @@ import CallToAction from "~/components/widgets/CallToAction.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import FAQs from "~/components/widgets/FAQs.astro";
 import ContentWithImage from "~/components/widgets/ContentWithImage.astro";
+import ContentWithVideo from "~/components/widgets/ContentWithVideo.astro";
 import CTALight from "~/components/widgets/CTALight.astro";
 import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
 import FeaturesWithImage from "~/components/widgets/FeaturesWithImage.astro";
@@ -87,6 +88,27 @@ const metadata = {
         );
       }
 
+      // ContentWithVideo Section
+      if (section.section === "ContentWithVideo") {
+        return (
+          <ContentWithVideo
+            title={section.title}
+            eyebrow={section.eyebrow}
+            description={section.description}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+            videoUrl={section.videoUrl}
+            videoPosition={section.videoPosition}
+            background={section.background}
+            poster={section.poster}
+            autoplay={section.autoplay}
+            muted={section.muted}
+            loop={section.loop}
+            controls={section.controls}
+          />
+        );
+      }
+
       // CTALight Section
       if (section.section === "CTALight") {
         return (
@@ -115,6 +137,10 @@ const metadata = {
               cards={section.features}
               ctaText={section.ctaText}
               ctaLink={section.ctaLink}
+              isCarousel={section.isCarousel}
+              itemsPerSlide={section.itemsPerSlide}
+              carouselAutoplay={section.carouselAutoplay}
+              carouselAutoplayDelay={section.carouselAutoplayDelay}
             />
           );
         }

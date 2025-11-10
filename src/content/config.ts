@@ -62,6 +62,13 @@ const solutions = defineCollection({
           description: z.string().optional(),
           eyebrow: z.string().optional(),
           image: z.string().optional(),
+          videoUrl: z.string().optional(),
+          videoPosition: z.string().optional(),
+          poster: z.string().optional(),
+          autoplay: z.boolean().optional(),
+          muted: z.boolean().optional(),
+          loop: z.boolean().optional(),
+          controls: z.boolean().optional(),
           background: z.string().optional(),
           imagePosition: z.string().optional(),
           order: z.number().optional(),
@@ -86,6 +93,10 @@ const solutions = defineCollection({
               })
             )
             .optional(),
+          isCarousel: z.boolean().optional(),
+          itemsPerSlide: z.number().optional(),
+          carouselAutoplay: z.boolean().optional(),
+          carouselAutoplayDelay: z.number().optional(),
           skills: z
             .array(
               z.object({

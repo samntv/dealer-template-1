@@ -3,6 +3,7 @@ import { getEntry } from "astro:content";
 import PageLayout from "~/layouts/PageLayout.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
+import FormSection from "~/components/widgets/FormSection.astro";
 import MapSection from "~/components/widgets/MapSection.astro";
 import CTALight from "~/components/widgets/CTALight.astro";
 import { getPageTitle } from "~/utils/config";
@@ -56,6 +57,21 @@ const metadata = {
             features={section.features}
             ctaText={section.ctaText}
             ctaLink={section.ctaLink}
+          />
+        );
+      }
+
+      // FormSection
+      if (section.section === "FormSection" && section.formFields) {
+        return (
+          <FormSection
+            title={section.title}
+            subtitle={section.eyebrow}
+            description={section.description}
+            fields={section.formFields}
+            submitText={section.submitText}
+            submitAction={section.submitAction}
+            background={section.background}
           />
         );
       }

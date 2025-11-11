@@ -4,6 +4,7 @@ import PageLayout from "~/layouts/PageLayout.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import ContentWithImage from "~/components/widgets/ContentWithImage.astro";
 import FeaturesSection from "~/components/widgets/FeaturesSection.astro";
+import FeaturesWithImage from "~/components/widgets/FeaturesWithImage.astro";
 import CTALight from "~/components/widgets/CTALight.astro";
 import { getPageTitle } from "~/utils/config";
 
@@ -72,6 +73,24 @@ const metadata = {
             features={section.features}
             ctaText={section.ctaText}
             ctaLink={section.ctaLink}
+          />
+        );
+      }
+
+      // FeaturesWithImage Section
+      if (section.section === "FeaturesWithImage" && section.features) {
+        return (
+          <FeaturesWithImage
+            eyebrow={section.eyebrow}
+            title={section.title}
+            description={section.description}
+            cards={section.features}
+            ctaText={section.ctaText}
+            ctaLink={section.ctaLink}
+            isCarousel={section.isCarousel}
+            itemsPerSlide={section.itemsPerSlide}
+            carouselAutoplay={section.carouselAutoplay}
+            carouselAutoplayDelay={section.carouselAutoplayDelay}
           />
         );
       }

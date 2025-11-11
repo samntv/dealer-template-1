@@ -307,9 +307,14 @@ const pages = defineCollection({
               title: z.string(),
               description: z.string(),
               icon: z.string().optional(),
+              image: z.string().optional(),
             })
           )
           .optional(),
+        isCarousel: z.boolean().optional(),
+        itemsPerSlide: z.number().optional(),
+        carouselAutoplay: z.boolean().optional(),
+        carouselAutoplayDelay: z.number().optional(),
         stats: z
           .array(
             z.object({
@@ -330,6 +335,34 @@ const pages = defineCollection({
         locations: z.array(z.string()).optional(),
         mapUrl: z.string().optional(),
         viewMode: z.enum(["half", "full"]).optional(),
+        formFields: z
+          .array(
+            z.object({
+              id: z.string(),
+              name: z.string(),
+              label: z.string(),
+              type: z.enum([
+                "text",
+                "email",
+                "tel",
+                "number",
+                "textarea",
+                "select",
+                "checkbox",
+                "radio",
+              ]),
+              placeholder: z.string().optional(),
+              required: z.boolean().optional(),
+              options: z.array(z.string()).optional(),
+              rows: z.number().optional(),
+              pattern: z.string().optional(),
+              helpText: z.string().optional(),
+              width: z.enum(["full", "half"]).optional(),
+            })
+          )
+          .optional(),
+        submitText: z.string().optional(),
+        submitAction: z.string().optional(),
       })
     ),
     metadata: metadataDefinition(),

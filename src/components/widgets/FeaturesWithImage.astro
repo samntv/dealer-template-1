@@ -28,14 +28,17 @@ const {
   cards = [],
   ctaText,
   ctaLink,
-  isCarousel = false,
+  isCarousel: isCarouselProp,
   itemsPerSlide = 2,
   carouselAutoplay = false,
   carouselAutoplayDelay = 5000,
 } = Astro.props;
 
-// Limit to max 4 cards and determine grid layout
-const displayCards = cards.slice(0, 4);
+// Automatically enable carousel if more than 4 cards, otherwise use prop value
+const isCarousel = cards.length > 4 ? true : (isCarouselProp || false);
+
+// Show all cards if carousel, otherwise limit to max 4
+const displayCards = isCarousel ? cards : cards.slice(0, 4);
 const cardCount = displayCards.length;
 
 // Adaptive grid classes based on card count

@@ -15,7 +15,6 @@ export const headerData = {
     },
     {
       text: "Indoor Billboards",
-      href: getPermalink("/indoor-billboards"),
       links: "auto", // Will be populated from content collection
     },
     {
@@ -40,7 +39,7 @@ export const headerData = {
       ],
     },
   ] as any[],
-  actions: [{ text: "Get In Touch", href: getPermalink("/contact-us") }],
+  actions: [{ text: "Contact Us", href: getPermalink("/contact-us") }],
 };
 
 export const footerData = {

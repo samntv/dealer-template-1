@@ -10,70 +10,97 @@ description: "Explore our full suite of indoor billboard and digital marketing s
 sections:
   # ============================================
   # 1. HERO SECTION
-  # Overview of available solutions
+  # Main banner at the top of the page
   # ============================================
   - section: "Hero"
-    eyebrow: "Solutions"
-    title: "Integrated Campaigns for Local Brands"
-    description: "Mix and match indoor digital billboards with complementary services to stay top of mind and drive action."
+    eyebrow: "Digital Marketing" # Small text above title
+    title: "Digital Marketing Services"
+    description: "A full range of services to make your business a digital powerhouse!"
+    image: "https://ucarecdn.com/293e9c08-5ae8-4be9-86f2-97cb2442ef8f/-/preview/1000x666/"
     order: 1
-    ctaText: "View Services"
-    ctaLink: "/solutions/lead-gen"
-
-  # ============================================
-  # 2. SOLUTION CATEGORIES
-  # Feature cards pointing to collections
-  # ============================================
-  - section: "FeaturesSection"
-    title: "Pick the Plan That Fits"
-    description: "Choose from foundational marketing, lead generation, or branding & awareness to match your growth goals."
-    order: 2
-    features:
-      - title: "Foundational"
-        description: "Build a strong digital presence with websites, SEO, and business profile optimization."
-        icon: "tabler:building"
-      - title: "Lead Generation"
-        description: "Drive inquiries and conversions through PPC, social media, and targeted campaigns."
-        icon: "tabler:bulb"
-      - title: "Branding & Awareness"
-        description: "Expand reach with streaming ads, YouTube campaigns, and indoor digital billboards."
-        icon: "tabler:brand-youtube"
-
-  # ============================================
-  # 3. PROCESS OVERVIEW
-  # Feature cards describing engagement stages
-  # ============================================
-  - section: "FeaturesSection"
-    title: "How We Work Together"
-    description: "A collaborative process that keeps every campaign on track."
-    order: 3
-    features:
-      - title: "Discover"
-        description: "We learn about your brand, audience, and goals."
-        icon: "tabler:search"
-      - title: "Plan"
-        description: "Our strategists map out the best mix of services for your objectives and budget."
-        icon: "tabler:clipboard-list"
-      - title: "Launch"
-        description: "Creative assets are produced, placements are secured, and campaigns go live."
-        icon: "tabler:rocket"
-      - title: "Optimize"
-        description: "We monitor performance and fine-tune to maximize ROI."
-        icon: "tabler:adjustments"
-
-  # ============================================
-  # 4. CTA SECTION
-  # Encourage contact
-  # ============================================
-  - section: "CTALight"
-    title: "Let’s Build Your Strategy"
-    description: "Tell us what success looks like and we’ll assemble the right blend of services."
-    order: 4
-    ctaText: "Talk With Our Team"
+    ctaText: "Get In Touch"
     ctaLink: "/contact"
 
-metadata:
-  title: "Marketing Solutions | NTX Indoor Digital Billboards"
-  description: "Explore indoor billboard, lead generation, and branding services tailored to local businesses."
----
+  # ============================================
+  # 2. SERVICES GRID SECTION
+  # 4 cards showing the website design process
+  # Each card has an icon and image
+  # ============================================
+  - section: "FeaturesWithImage"
+    title: "A Digital Marketing Powerhouse"
+    description: ""
+    order: 2
+    features:
+      - title: "Reach More People"
+        description: "Use multiple channels to connect with a wider audience in different places."
+        icon: "tabler:users"
+        image: "https://ucarecdn.com/b1db1890-3985-445a-af26-b42a252fd373/-/preview/1000x662/"
+      - title: "Increase Engagement"
+        description: "Connect with users on their preferred channels, where they’re more likely to engage with your content."
+        icon: "tabler:message-circle"
+        image: "https://ucarecdn.com/ba84ccba-69c2-4491-ae6a-5993b87bc2f9/-/preview/1000x666/"
+      - title: "Consistent Brand Image"
+        description: "Maintain a uniform brand image across channels to make your brand recognizable and relatable."
+        icon: "tabler:badge"
+        image: "https://ucarecdn.com/cb3f4025-06ec-45a7-98fc-85de0a215682/-/preview/1000x666/"
+      - title: "Simplify Customer Path"
+        description: "Create more touch points in the customer journey, making it easier to guide them towards a desired action."
+        icon: "tabler:route"
+        image: "https://ucarecdn.com/180af878-dadc-47fd-bc18-5ec689f306a6/-/preview/1000x666/"
 
+   # ============================================
+  # 3. TWO COLUMN FEATURES
+  # 4 feature cards in 2x2 grid with icons
+  # Icons use Tabler icon set (tabler:icon-name)
+  # ============================================
+  - section: "FeaturesSection"
+    title: "Multichannel Marketing"
+    description: ""
+    order: 3
+    features:
+      - title: "Screen Advertising"
+        description: "Our hyper-local digital screens showcase your personalized motion ad on repeat, keeping your brand at the forefront for existing customers and building awareness with new ones throughout their daily routines."
+        icon: "tabler:ad"
+      - title: "Website Design"
+        description: "Collaborate with our skilled creative team to craft a visually stunning and well-functioning website, perfectly aligned with your brand’s identity and objectives."
+        icon: "tabler:code"
+      - title: "Google Business Profile"
+        description: "Your Google Business Profile is the open sign on your digital storefront. Work alongside a dedicated specialist to ensure your profile is optimized with posts, photos, hours of operation, and beyond."
+        icon: "tabler:brand-google"
+      - title: "Social Media Management"
+        description: "Amplify your brand online with Social Media management. Our SMM team will elevate your brand presence through strategic management and captivating content."
+        icon: "tabler:share-3"
+      - title: "Pay-Per-Click (PPC)"
+        description: "Drive leads and dominate search engine results pages with highly targeted Pay-Per-Click campaigns. Make yourself known on the world’s most used search engine."
+        icon: "tabler:hand-click"
+      - title: "Social Media Ads"
+        description: "Use targeted messaging and in-depth customer demographics to reach your ideal customers on social platforms and spark valuable engagement."
+        icon: "tabler:photo"
+      - title: "Display Advertising | Geofencing"
+        description: "Leverage location-targeted ads to reach users online and on their devices. These visually engaging ads help increase your brand visibility."
+        icon: "tabler:focus-2"
+      - title: "Connected TV | OTT Ads"
+        description: "Cutting-edge CTV | OTT ads put your brand front and center to a streaming audience with non-skippable placements on platforms like Apple TV, ESPN, and Roku."
+        icon: "tabler:device-tv"
+      - title: "Pre-Roll Ads"
+        description: "Pre-Roll ads appear before videos on your audience’s favorite websites. These non-skippable spots are perfect for boosting brand trust and visibility."
+        icon: "tabler:player-play"
+      - title: "YouTube Ads"
+        description: "Reach a global audience with stunning visuals through YouTube advertising."
+        icon: "tabler:brand-youtube"
+      - title: "Streaming Audio"
+        description: "Streamline your message directly into listeners’ favorite podcasts, radio, or music with strategic streaming audio ads that captivate at the perfect moment."
+        icon: "tabler:headphones"
+      - title: "Design Services"
+        description: "Our skilled designers transform your vision into exceptional graphic design—from logos and rebrands to captivating flyers—shaping your brand identity and marketing."
+        icon: "tabler:tools"
+
+
+# ============================================
+# SEO METADATA
+# Used for search engines and social media
+# ============================================
+metadata:
+  title: "Website Design Services Denver | Custom Web Development"
+  description: "Professional website design and development services in Denver. We build custom, mobile-friendly websites that drive results. Get a free consultation today."
+---

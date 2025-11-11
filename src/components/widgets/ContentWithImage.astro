@@ -97,9 +97,10 @@ const eyebrowColorClass = isDarkBg ? "text-primary-lighter" : "text-primary";
         }
         {
           description && (
-            <p class={`text-base sm:text-lg ${subtextColorClass} mb-6 sm:mb-8`}>
-              {description}
-            </p>
+            <p
+              class={`text-base sm:text-lg ${subtextColorClass} mb-6 sm:mb-8`}
+              set:html={description}
+            />
           )
         }
         {

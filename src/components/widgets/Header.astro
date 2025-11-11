@@ -133,22 +133,41 @@ const { actions = [] } = headerData;
               <div class="relative" data-dropdown={`dropdown-${index}`}>
                 {link.links && link.links.length > 0 ? (
                   <>
-                    <a href={link.href} class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center">
-                      {link.text}
-                      <svg
-                        class="ml-1 h-4 w-4 transition-transform dropdown-arrow"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </a>
+                    {link.href ? (
+                      <a href={link.href} class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center">
+                        {link.text}
+                        <svg
+                          class="ml-1 h-4 w-4 transition-transform dropdown-arrow"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </a>
+                    ) : (
+                      <button class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center">
+                        {link.text}
+                        <svg
+                          class="ml-1 h-4 w-4 transition-transform dropdown-arrow"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </button>
+                    )}
                     {/* Mega Menu for Solutions */}
                     {link.text === "Solutions" ? (
                       <div class="dropdown-menu absolute left-1/2 -translate-x-1/2 mt-2 2xl:w-[1000px] xl:w-[550px] lg:w-[450px] w-[400px] max-w-[calc(100vw-2rem)] opacity-0 invisible pointer-events-none transition-all duration-200 z-50">
@@ -270,25 +289,27 @@ const { actions = [] } = headerData;
                       <div class="dropdown-menu absolute left-0 lg:left-auto lg:right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] opacity-0 invisible pointer-events-none transition-all duration-200 z-50">
                         <div class="rounded-xl shadow-2xl bg-white ring-1 ring-gray-200 overflow-hidden">
                           <div class="p-6">
-                            <a
-                              href={link.href}
-                              class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider mb-4 hover:text-primary-dark"
-                            >
-                              Overview
-                              <svg
-                                class="w-3 h-3"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
+                            {link.href && (
+                              <a
+                                href={link.href}
+                                class="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider mb-4 hover:text-primary-dark"
                               >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M9 5l7 7-7 7"
-                                />
-                              </svg>
-                            </a>
+                                Overview
+                                <svg
+                                  class="w-3 h-3"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9 5l7 7-7 7"
+                                  />
+                                </svg>
+                              </a>
+                            )}
                             <div class="space-y-1">
                               {link.links.map((sublink) => (
                                 <a
@@ -388,12 +409,14 @@ const { actions = [] } = headerData;
                   </svg>
                 </button>
                 <div class="mobile-dropdown-content mt-2 space-y-1 transition-all duration-300 ease-in-out overflow-hidden max-h-0">
-                  <a
-                    href={link.href}
-                    class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary rounded-md"
-                  >
-                    Overview
-                  </a>
+                  {link.href && (
+                    <a
+                      href={link.href}
+                      class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary rounded-md"
+                    >
+                      Overview
+                    </a>
+                  )}
                   {link.links.map((sublink) => (
                     <div>
                       {sublink.links && sublink.links.length > 0 ? (
@@ -541,21 +564,23 @@ const { actions = [] } = headerData;
   }
 
   function initSmartDropdowns() {
-    // Click-based dropdown navigation - arrow toggles, link navigates
-    const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+    // Hover-based dropdown navigation
+    const dropdownContainers = document.querySelectorAll("[data-dropdown]");
 
-    dropdownToggles.forEach((toggle) => {
-      const arrow = toggle.querySelector(".dropdown-arrow");
-      
-      // Arrow click toggles dropdown
-      arrow?.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    dropdownContainers.forEach((container) => {
+      const dropdown = container.querySelector(".dropdown-menu");
+      const arrow = container.querySelector(".dropdown-arrow");
 
-        const parent = toggle.closest("[data-dropdown]");
-        const dropdown = parent?.querySelector(".dropdown-menu");
+      if (!dropdown) return;
 
-        if (!dropdown) return;
+      let closeTimeout: ReturnType<typeof setTimeout> | null = null;
+
+      const openDropdown = () => {
+        // Clear any pending close timeout
+        if (closeTimeout) {
+          clearTimeout(closeTimeout);
+          closeTimeout = null;
+        }
 
         // Close all other dropdowns
         document.querySelectorAll(".dropdown-menu").forEach((menu) => {
@@ -569,16 +594,29 @@ const { actions = [] } = headerData;
           }
         });
 
-        // Reset all arrows
+        // Reset all other arrows
         document.querySelectorAll(".dropdown-arrow").forEach((svg) => {
           if (svg !== arrow) {
             svg.classList.remove("rotate-180");
           }
         });
 
-        // Toggle current dropdown
-        const isOpen = dropdown.classList.contains("opacity-100");
-        if (isOpen) {
+        // Open current dropdown
+        dropdown.classList.remove(
+          "opacity-0",
+          "invisible",
+          "pointer-events-none"
+        );
+        dropdown.classList.add(
+          "opacity-100",
+          "visible",
+          "pointer-events-auto"
+        );
+        arrow?.classList.add("rotate-180");
+      };
+
+      const closeDropdown = () => {
+        closeTimeout = setTimeout(() => {
           dropdown.classList.remove(
             "opacity-100",
             "visible",
@@ -589,41 +627,26 @@ const { actions = [] } = headerData;
             "invisible",
             "pointer-events-none"
           );
-          arrow.classList.remove("rotate-180");
-        } else {
-          dropdown.classList.remove(
-            "opacity-0",
-            "invisible",
-            "pointer-events-none"
-          );
-          dropdown.classList.add(
-            "opacity-100",
-            "visible",
-            "pointer-events-auto"
-          );
-          arrow.classList.add("rotate-180");
+          arrow?.classList.remove("rotate-180");
+        }, 100);
+      };
+
+      // Open dropdown on hover over container
+      container.addEventListener("mouseenter", openDropdown);
+
+      // Close dropdown when leaving container
+      container.addEventListener("mouseleave", closeDropdown);
+
+      // Keep dropdown open when hovering over it
+      dropdown.addEventListener("mouseenter", () => {
+        if (closeTimeout) {
+          clearTimeout(closeTimeout);
+          closeTimeout = null;
         }
       });
-      
-      // Link click navigates (default behavior, no preventDefault)
-    });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest("[data-dropdown]")) {
-        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
-          menu.classList.remove(
-            "opacity-100",
-            "visible",
-            "pointer-events-auto"
-          );
-          menu.classList.add("opacity-0", "invisible", "pointer-events-none");
-        });
-        document.querySelectorAll(".dropdown-arrow").forEach((svg) => {
-          svg.classList.remove("rotate-180");
-        });
-      }
+      // Close dropdown when leaving the dropdown menu
+      dropdown.addEventListener("mouseleave", closeDropdown);
     });
   }
 

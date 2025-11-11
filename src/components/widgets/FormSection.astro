@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface FormField {
   id: string;
   name: string;
@@ -21,6 +23,13 @@ interface FormField {
   width?: "full" | "half"; // Layout width
 }
 
+interface ContactInfo {
+  icon: string;
+  label: string;
+  value: string;
+  link?: string;
+}
+
 interface Props {
   title?: string;
   subtitle?: string;
@@ -33,6 +42,7 @@ interface Props {
   background?: string;
   showRecaptcha?: boolean;
   recaptchaSiteKey?: string;
+  contactInfo?: ContactInfo[];
 }
 
 const {
@@ -47,42 +57,73 @@ const {
   background = "white",
   showRecaptcha = true,
   recaptchaSiteKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI", // Test key - replace with your actual key
+  contactInfo = [],
 } = Astro.props;
 
 const bgClass =
-  background === "primary-dark" ? "bg-primary-dark text-white" : "bg-white";
+  background === "primary-dark" ? "bg-primary-dark text-white" : "bg-gray-50";
 ---
 
-<section class={`py-12 sm:py-16 md:py-24 ${bgClass}`}>
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header -->
-    {
-      (title || subtitle || description) && (
-        <div class="text-center mb-10 sm:mb-12">
+<section class="py-12 sm:py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-2xl shadow-2xl min-h-[500px]">
+      <!-- Left Column: Contact Information (Dark Background) -->
+      <div class="bg-primary-dark text-white px-6 sm:px-8 lg:px-10 py-10 sm:py-12 lg:py-14 flex flex-col justify-center">
+        <div class="max-w-lg">
+          {title && (
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 leading-tight">
+              {title}
+            </h2>
+          )}
+          
           {subtitle && (
-            <p class="text-xs sm:text-sm font-semibold text-primary uppercase tracking-wider mb-3">
+            <p class="text-base sm:text-lg text-white/90 mb-4">
               {subtitle}
             </p>
           )}
-          {title && (
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-gray-900">{title}</h2>
-          )}
+
           {description && (
-            <p class="text-sm sm:text-base text-gray-600 max-w-xl mx-auto leading-relaxed">{description}</p>
+            <p class="text-sm text-white/80 mb-8 leading-relaxed">
+              {description}
+            </p>
+          )}
+
+          {contactInfo && contactInfo.length > 0 && (
+            <div class="space-y-4">
+              {contactInfo.map((info) => (
+                <div class="flex items-center gap-3">
+                  <div class="flex-shrink-0 w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Icon name={info.icon} class="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    {info.link ? (
+                      <a
+                        href={info.link}
+                        class="text-sm sm:text-base font-medium text-white hover:text-primary transition block"
+                      >
+                        {info.value}
+                      </a>
+                    ) : (
+                      <p class="text-sm sm:text-base font-medium text-white">{info.value}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
         </div>
-      )
-    }
+      </div>
 
-    <!-- Form Container -->
-    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 md:p-10">
+      <!-- Right Column: Form Card (White Background) -->
+      <div class="bg-white px-6 sm:px-8 lg:px-10 py-10 sm:py-12 lg:py-14 flex flex-col justify-center">
+        <div class="max-w-lg mx-auto w-full">
       <form
         action={submitAction}
         method={method}
-        class="space-y-6"
+        class="space-y-4"
         id="contact-form"
       >
-      <div class="space-y-5">
+      <div class="space-y-4">
         {
           fields.map((field) => {
             return (
@@ -91,7 +132,7 @@ const bgClass =
                 {field.label && field.type !== "checkbox" && (
                   <label
                     for={field.id}
-                    class="block text-sm font-semibold text-gray-700 mb-2"
+                    class="block text-sm font-semibold text-gray-700 mb-1.5"
                   >
                     {field.label}
                     {field.required && <span class="text-red-500 ml-1">*</span>}
@@ -110,7 +151,7 @@ const bgClass =
                     placeholder={field.placeholder}
                     required={field.required}
                     pattern={field.pattern}
-                    class="w-full px-4 py-3.5 text-base border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-gray-50 hover:bg-white hover:border-gray-300"
+                    class="w-full px-4 py-2.5 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-gray-50 hover:bg-white hover:border-gray-300"
                   />
                 )}
 
@@ -121,8 +162,8 @@ const bgClass =
                     name={field.name}
                     placeholder={field.placeholder}
                     required={field.required}
-                    rows={field.rows || 4}
-                    class="w-full px-4 py-3.5 text-base border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none resize-none bg-gray-50 hover:bg-white hover:border-gray-300"
+                    rows={field.rows || 3}
+                    class="w-full px-4 py-2.5 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none resize-none bg-gray-50 hover:bg-white hover:border-gray-300"
                   />
                 )}
 
@@ -194,34 +235,12 @@ const bgClass =
         }
       </div>
 
-      <!-- reCAPTCHA -->
-      {
-        showRecaptcha && (
-          <div class="space-y-2 pt-2">
-            <label class="block text-sm font-semibold text-gray-700 mb-3">
-              Verification<span class="text-red-500 ml-1">*</span>
-            </label>
-            <div class="flex justify-center sm:justify-start">
-              <div
-                id="recaptcha-container"
-                class="g-recaptcha inline-block"
-                data-sitekey={recaptchaSiteKey}
-                data-theme="light"
-              />
-            </div>
-            <p id="recaptcha-error" class="text-red-500 text-sm font-medium hidden mt-2">
-              Please complete the reCAPTCHA verification.
-            </p>
-          </div>
-        )
-      }
-
       <!-- Submit Button -->
-      <div class="pt-6">
+      <div class="pt-2">
         <button
           type="submit"
           id="submit-button"
-          class="w-full px-8 py-4 bg-primary-dark text-white text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-primary hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          class="w-full px-6 py-3 bg-primary-dark text-white text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-primary hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           {submitText}
         </button>
@@ -234,44 +253,22 @@ const bgClass =
       >
         {successMessage}
       </div>
-    </form>
+      </form>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- reCAPTCHA Script -->
-<script
-  src="https://www.google.com/recaptcha/api.js"
-  async
-  defer
-  is:inline
-></script>
 
 <script>
   function initForm() {
     const form = document.getElementById("contact-form") as HTMLFormElement;
     const successMessage = document.getElementById("success-message");
     const submitButton = document.getElementById("submit-button") as HTMLButtonElement;
-    const recaptchaError = document.getElementById("recaptcha-error");
-    const recaptchaContainer = document.getElementById("recaptcha-container");
 
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        // Check reCAPTCHA if enabled
-        if (recaptchaContainer) {
-          const recaptchaResponse = (window as any).grecaptcha?.getResponse();
-          
-          if (!recaptchaResponse) {
-            recaptchaError?.classList.remove("hidden");
-            recaptchaContainer.classList.add("ring-2", "ring-red-500", "rounded");
-            return;
-          } else {
-            recaptchaError?.classList.add("hidden");
-            recaptchaContainer.classList.remove("ring-2", "ring-red-500", "rounded");
-          }
-        }
 
         // Disable submit button
         submitButton.disabled = true;
@@ -292,12 +289,9 @@ const bgClass =
           form.classList.add("hidden");
           successMessage?.classList.remove("hidden");
 
-          // Reset form and reCAPTCHA after 3 seconds
+          // Reset form after 3 seconds
           setTimeout(() => {
             form.reset();
-            if ((window as any).grecaptcha) {
-              (window as any).grecaptcha.reset();
-            }
             form.classList.remove("hidden");
             successMessage?.classList.add("hidden");
             submitButton.disabled = false;
@@ -310,39 +304,15 @@ const bgClass =
           submitButton.textContent = originalText;
         }
       });
-
-      // Remove error when user interacts with reCAPTCHA
-      if (recaptchaContainer) {
-        const checkRecaptcha = setInterval(() => {
-          const recaptchaResponse = (window as any).grecaptcha?.getResponse();
-          if (recaptchaResponse) {
-            recaptchaError?.classList.add("hidden");
-            recaptchaContainer.classList.remove("ring-2", "ring-red-500", "rounded");
-          }
-        }, 500);
-
-        // Cleanup interval when form is removed
-        const observer = new MutationObserver((mutations) => {
-          if (!document.body.contains(form)) {
-            clearInterval(checkRecaptcha);
-            observer.disconnect();
-          }
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-      }
     }
   }
 
-  // Wait for reCAPTCHA to load
-  if ((window as any).grecaptcha) {
-    initForm();
+  // Initialize on load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initForm);
   } else {
-    window.addEventListener("load", () => {
-      setTimeout(initForm, 500);
-    });
+    initForm();
   }
   
-  document.addEventListener("astro:after-swap", () => {
-    setTimeout(initForm, 500);
-  });
+  document.addEventListener("astro:after-swap", initForm);
 </script>

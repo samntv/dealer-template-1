@@ -24,12 +24,25 @@ sections:
 # Form for users to get in touch
 # ============================================
 - section: "FormSection"
-  title: "Let's Work Together"
-  eyebrow: ""
-  description: "By providing a telephone number and submitting this form you are consenting to be contacted by SMS text message. Message & data rates may apply. You can reply STOP to opt out of further messaging."
+  title: "Contact Us"
+  subtitle: "Let's get in touch"
+  description: "Get in touch with us to learn more about our services and how we can help your business grow."
   order: 2
   submitText: "SUBMIT FORM"
   submitAction: "/api/contact"
+  contactInfo:
+    - icon: "tabler:phone"
+      label: "Phone"
+      value: "(720) 605-6959"
+      link: "tel:+17206056959"
+    - icon: "tabler:mail"
+      label: "Email"
+      value: "info@denvermarketing.com"
+      link: "mailto:info@denvermarketing.com"
+    - icon: "tabler:map-pin"
+      label: "Location"
+      value: "Denver, Colorado"
+      link: ""
   formFields:
     - id: "name"
       name: "name"

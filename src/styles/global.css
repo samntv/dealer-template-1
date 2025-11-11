@@ -95,3 +95,22 @@ body {
 .mobile-dropdown-content {
   transition: max-height 0.3s ease-in-out;
 }
+
+/* Fix white line artifacts on dark backgrounds */
+section,
+footer,
+header {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Ensure no gaps between sections */
+body {
+  overflow-x: hidden;
+}
+
+main {
+  display: block;
+  width: 100%;
+}

@@ -4,6 +4,7 @@ import PageLayout from "~/layouts/PageLayout.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import ServicesGrid from "~/components/widgets/ServicesGrid.astro";
 import ContentWithKeypoints from "~/components/widgets/ContentWithKeypoints.astro";
+import ContentWithImage from "~/components/widgets/ContentWithImage.astro";
 import BoostVisibility from "~/components/widgets/BoostVisibility.astro";
 import CallToAction from "~/components/widgets/CallToAction.astro";
 import FAQs from "~/components/widgets/FAQs.astro";
@@ -23,7 +24,7 @@ const heroSection = getSection("Hero");
 const servicesGridSection = getSection("ServicesGrid");
 const venueNetworkSection = getSectionByOrder("ContentWithKeypoints", 3);
 const boostVisibilitySection = getSection("BoostVisibility");
-const whyChooseUsSection = getSectionByOrder("ContentWithKeypoints", 5);
+const whyChooseUsSection = getSectionByOrder("ContentWithImage", 5);
 const ctaBannerSection = getSection("CTABanner");
 const faqsSection = getSection("FAQs");
 const mapSection = getSection("Map");
@@ -88,8 +89,22 @@ const finalCTASection = getSection("FinalCTA");
   }
 
   {
-    whyChooseUsSection && (
+    whyChooseUsSection && whyChooseUsSection.section === "ContentWithImage" && (
+      <ContentWithImage
+        eyebrow={whyChooseUsSection.eyebrow}
+        title={whyChooseUsSection.title}
+        description={whyChooseUsSection.description}
+        ctaText={whyChooseUsSection.ctaText}
+        ctaLink={whyChooseUsSection.ctaLink}
+        image={whyChooseUsSection.image}
+        background={whyChooseUsSection.background}
+      />
+    )
+  }
+  {
+    whyChooseUsSection && whyChooseUsSection.section === "ContentWithKeypoints" && (
       <ContentWithKeypoints
+        eyebrow={whyChooseUsSection.eyebrow}
         title={whyChooseUsSection.title}
         description={whyChooseUsSection.description}
         ctaText={whyChooseUsSection.ctaText}

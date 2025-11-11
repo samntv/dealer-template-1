@@ -15,7 +15,7 @@ export const headerData = {
     },
     {
       text: "Indoor Billboards",
-      links: "auto", // Will be populated from content collection
+      links: "auto", 
     },
     {
       text: "Solutions",
@@ -23,18 +23,15 @@ export const headerData = {
       links: [
         {
           text: "Foundational",
-          href: getPermalink("/solutions/foundational"),
-          links: "auto", // Will be populated from content collection
+          links: "auto", 
         },
         {
           text: "Lead Gen",
-          href: getPermalink("/solutions/lead-gen"),
-          links: "auto", // Will be populated from content collection
+          links: "auto", 
         },
         {
           text: "Branding & Awareness",
-          href: getPermalink("/solutions/branding-awareness"),
-          links: "auto", // Will be populated from content collection
+          links: "auto", 
         },
       ],
     },

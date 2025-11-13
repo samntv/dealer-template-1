@@ -16,9 +16,7 @@ import { getPageTitle } from "~/utils/config";
 
 export async function getStaticPaths() {
   const solutions = await getCollection("solutions");
-  const leadGen = solutions.filter(
-    (s) => s.data.category === "lead-gen"
-  );
+  const leadGen = solutions.filter((s) => s.data.category === "lead-gen");
 
   return leadGen.map((entry) => ({
     params: { slug: entry.slug.replace("lead-gen/", "") },
@@ -33,7 +31,9 @@ type Props = {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-const sections = (entry.data.sections || []).sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+const sections = (entry.data.sections || []).sort(
+  (a: any, b: any) => (a.order || 0) - (b.order || 0)
+);
 
 const metadata = {
   title: getPageTitle(entry.data.title),
@@ -131,14 +131,12 @@ const metadata = {
       }
 
       // WhyChooseUs / Overview / Cornerstone Sections (centered text with key points)
-      if (
-        section.section === "CTALight"
-      ) {
+      if (section.section === "CTALight") {
         return (
           <CTALight
             title={section.title}
             description={section.description}
-            ctaText={section.ctaText || "Get In Touch"}
+            ctaText={section.ctaText || "Get in Touch"}
             ctaLink={section.ctaLink || "/contact"}
           />
         );
@@ -198,7 +196,7 @@ const metadata = {
       : "Contact us today to discuss your project and see how we can help your business grow."}
     actions={[
       {
-        text: entry.data.ctaText || "Get In Touch",
+        text: entry.data.ctaText || "Get in Touch",
         href: entry.data.ctaLink || "/contact",
         variant: "primary",
       },

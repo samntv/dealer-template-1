@@ -46,7 +46,7 @@ interface Props {
 }
 
 const {
-  title = "Get In Touch",
+  title = "Get in Touch",
   subtitle = "We'd love to hear from you",
   description = "Fill out the form below and we'll get back to you as soon as possible.",
   fields = [],
@@ -66,194 +66,215 @@ const bgClass =
 
 <section class="py-12 sm:py-16 md:py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-2xl shadow-2xl min-h-[500px]">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-2xl shadow-2xl min-h-[500px]"
+    >
       <!-- Left Column: Contact Information (Dark Background) -->
-      <div class="bg-primary-dark text-white px-6 sm:px-8 lg:px-10 py-10 sm:py-12 lg:py-14 flex flex-col justify-center">
+      <div
+        class="bg-primary-dark text-white px-6 sm:px-8 lg:px-10 py-10 sm:py-12 lg:py-14 flex flex-col justify-center"
+      >
         <div class="max-w-lg">
-          {title && (
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 leading-tight">
-              {title}
-            </h2>
-          )}
-          
-          {subtitle && (
-            <p class="text-base sm:text-lg text-white/90 mb-4">
-              {subtitle}
-            </p>
-          )}
+          {
+            title && (
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 leading-tight">
+                {title}
+              </h2>
+            )
+          }
 
-          {description && (
-            <p class="text-sm text-white/80 mb-8 leading-relaxed">
-              {description}
-            </p>
-          )}
+          {
+            subtitle && (
+              <p class="text-base sm:text-lg text-white/90 mb-4">{subtitle}</p>
+            )
+          }
 
-          {contactInfo && contactInfo.length > 0 && (
-            <div class="space-y-4">
-              {contactInfo.map((info) => (
-                <div class="flex items-center gap-3">
-                  <div class="flex-shrink-0 w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center">
-                    <Icon name={info.icon} class="w-5 h-5 text-white" />
+          {
+            description && (
+              <p class="text-sm text-white/80 mb-8 leading-relaxed">
+                {description}
+              </p>
+            )
+          }
+
+          {
+            contactInfo && contactInfo.length > 0 && (
+              <div class="space-y-4">
+                {contactInfo.map((info) => (
+                  <div class="flex items-center gap-3">
+                    <div class="flex-shrink-0 w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center">
+                      <Icon name={info.icon} class="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      {info.link ? (
+                        <a
+                          href={info.link}
+                          class="text-sm sm:text-base font-medium text-white hover:text-primary transition block"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <p class="text-sm sm:text-base font-medium text-white">
+                          {info.value}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    {info.link ? (
-                      <a
-                        href={info.link}
-                        class="text-sm sm:text-base font-medium text-white hover:text-primary transition block"
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <p class="text-sm sm:text-base font-medium text-white">{info.value}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )
+          }
         </div>
       </div>
 
       <!-- Right Column: Form Card (White Background) -->
-      <div class="bg-white px-6 sm:px-8 lg:px-10 py-10 sm:py-12 lg:py-14 flex flex-col justify-center">
-        <div class="max-w-lg mx-auto w-full">
-      <form
-        action={submitAction}
-        method={method}
-        class="space-y-4"
-        id="contact-form"
-      >
-      <div class="space-y-4">
-        {
-          fields.map((field) => {
-            return (
-              <div>
-                {/* Label */}
-                {field.label && field.type !== "checkbox" && (
-                  <label
-                    for={field.id}
-                    class="block text-sm font-semibold text-gray-700 mb-1.5"
-                  >
-                    {field.label}
-                    {field.required && <span class="text-red-500 ml-1">*</span>}
-                  </label>
-                )}
-
-                {/* Text Input */}
-                {(field.type === "text" ||
-                  field.type === "email" ||
-                  field.type === "tel" ||
-                  field.type === "number") && (
-                  <input
-                    type={field.type}
-                    id={field.id}
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    pattern={field.pattern}
-                    class="w-full px-4 py-2.5 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-gray-50 hover:bg-white hover:border-gray-300"
-                  />
-                )}
-
-                {/* Textarea */}
-                {field.type === "textarea" && (
-                  <textarea
-                    id={field.id}
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    required={field.required}
-                    rows={field.rows || 3}
-                    class="w-full px-4 py-2.5 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none resize-none bg-gray-50 hover:bg-white hover:border-gray-300"
-                  />
-                )}
-
-                {/* Select */}
-                {field.type === "select" && field.options && (
-                  <select
-                    id={field.id}
-                    name={field.name}
-                    required={field.required}
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
-                  >
-                    <option value="">Select an option</option>
-                    {field.options.map((option) => (
-                      <option value={option}>{option}</option>
-                    ))}
-                  </select>
-                )}
-
-                {/* Checkbox */}
-                {field.type === "checkbox" && (
-                  <div class="flex items-start">
-                    <input
-                      type="checkbox"
-                      id={field.id}
-                      name={field.name}
-                      required={field.required}
-                      class="mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
-                    />
-                    <label for={field.id} class="ml-2 text-sm text-gray-700">
-                      {field.label}
-                      {field.required && (
-                        <span class="text-red-500 ml-1">*</span>
-                      )}
-                    </label>
-                  </div>
-                )}
-
-                {/* Radio */}
-                {field.type === "radio" && field.options && (
-                  <div class="space-y-2">
-                    {field.options.map((option, idx) => (
-                      <div class="flex items-center">
-                        <input
-                          type="radio"
-                          id={`${field.id}-${idx}`}
-                          name={field.name}
-                          value={option}
-                          required={field.required}
-                          class="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
-                        />
-                        <label
-                          for={`${field.id}-${idx}`}
-                          class="ml-2 text-sm text-gray-700"
-                        >
-                          {option}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Help Text */}
-                {field.helpText && (
-                  <p class="mt-1 text-sm text-gray-500">{field.helpText}</p>
-                )}
-              </div>
-            );
-          })
-        }
-      </div>
-
-      <!-- Submit Button -->
-      <div class="pt-2">
-        <button
-          type="submit"
-          id="submit-button"
-          class="w-full px-6 py-3 bg-primary-dark text-white text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-primary hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-        >
-          {submitText}
-        </button>
-      </div>
-
-      <!-- Success Message (hidden by default) -->
       <div
-        id="success-message"
-        class="hidden p-5 bg-green-50 border-2 border-green-200 rounded-lg text-green-800 text-center font-medium"
+        class="bg-white px-6 sm:px-8 lg:px-10 py-10 sm:py-12 lg:py-14 flex flex-col justify-center"
       >
-        {successMessage}
-      </div>
-      </form>
+        <div class="max-w-lg mx-auto w-full">
+          <form
+            action={submitAction}
+            method={method}
+            class="space-y-4"
+            id="contact-form"
+          >
+            <div class="space-y-4">
+              {
+                fields.map((field) => {
+                  return (
+                    <div>
+                      {/* Label */}
+                      {field.label && field.type !== "checkbox" && (
+                        <label
+                          for={field.id}
+                          class="block text-sm font-semibold text-gray-700 mb-1.5"
+                        >
+                          {field.label}
+                          {field.required && (
+                            <span class="text-red-500 ml-1">*</span>
+                          )}
+                        </label>
+                      )}
+
+                      {/* Text Input */}
+                      {(field.type === "text" ||
+                        field.type === "email" ||
+                        field.type === "tel" ||
+                        field.type === "number") && (
+                        <input
+                          type={field.type}
+                          id={field.id}
+                          name={field.name}
+                          placeholder={field.placeholder}
+                          required={field.required}
+                          pattern={field.pattern}
+                          class="w-full px-4 py-2.5 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-gray-50 hover:bg-white hover:border-gray-300"
+                        />
+                      )}
+
+                      {/* Textarea */}
+                      {field.type === "textarea" && (
+                        <textarea
+                          id={field.id}
+                          name={field.name}
+                          placeholder={field.placeholder}
+                          required={field.required}
+                          rows={field.rows || 3}
+                          class="w-full px-4 py-2.5 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none resize-none bg-gray-50 hover:bg-white hover:border-gray-300"
+                        />
+                      )}
+
+                      {/* Select */}
+                      {field.type === "select" && field.options && (
+                        <select
+                          id={field.id}
+                          name={field.name}
+                          required={field.required}
+                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                        >
+                          <option value="">Select an option</option>
+                          {field.options.map((option) => (
+                            <option value={option}>{option}</option>
+                          ))}
+                        </select>
+                      )}
+
+                      {/* Checkbox */}
+                      {field.type === "checkbox" && (
+                        <div class="flex items-start">
+                          <input
+                            type="checkbox"
+                            id={field.id}
+                            name={field.name}
+                            required={field.required}
+                            class="mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
+                          />
+                          <label
+                            for={field.id}
+                            class="ml-2 text-sm text-gray-700"
+                          >
+                            {field.label}
+                            {field.required && (
+                              <span class="text-red-500 ml-1">*</span>
+                            )}
+                          </label>
+                        </div>
+                      )}
+
+                      {/* Radio */}
+                      {field.type === "radio" && field.options && (
+                        <div class="space-y-2">
+                          {field.options.map((option, idx) => (
+                            <div class="flex items-center">
+                              <input
+                                type="radio"
+                                id={`${field.id}-${idx}`}
+                                name={field.name}
+                                value={option}
+                                required={field.required}
+                                class="h-4 w-4 text-primary border-gray-300 focus:ring-primary"
+                              />
+                              <label
+                                for={`${field.id}-${idx}`}
+                                class="ml-2 text-sm text-gray-700"
+                              >
+                                {option}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Help Text */}
+                      {field.helpText && (
+                        <p class="mt-1 text-sm text-gray-500">
+                          {field.helpText}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })
+              }
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-2">
+              <button
+                type="submit"
+                id="submit-button"
+                class="w-full px-6 py-3 bg-primary-dark text-white text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-primary hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                {submitText}
+              </button>
+            </div>
+
+            <!-- Success Message (hidden by default) -->
+            <div
+              id="success-message"
+              class="hidden p-5 bg-green-50 border-2 border-green-200 rounded-lg text-green-800 text-center font-medium"
+            >
+              {successMessage}
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -264,7 +285,9 @@ const bgClass =
   function initForm() {
     const form = document.getElementById("contact-form") as HTMLFormElement;
     const successMessage = document.getElementById("success-message");
-    const submitButton = document.getElementById("submit-button") as HTMLButtonElement;
+    const submitButton = document.getElementById(
+      "submit-button"
+    ) as HTMLButtonElement;
 
     if (form) {
       form.addEventListener("submit", async (e) => {
@@ -313,6 +336,6 @@ const bgClass =
   } else {
     initForm();
   }
-  
+
   document.addEventListener("astro:after-swap", initForm);
 </script>

@@ -5,16 +5,14 @@ interface Props {
   actions?: Array<{
     text: string;
     href: string;
-    variant?: 'primary' | 'secondary';
+    variant?: "primary" | "secondary";
   }>;
 }
 
 const {
-  title = 'Ready to get started?',
-  subtitle = 'Contact us today to learn how we can help grow your business.',
-  actions = [
-    { text: 'Get In Touch', href: '/contact', variant: 'primary' },
-  ],
+  title = "Ready to get started?",
+  subtitle = "Contact us today to learn how we can help grow your business.",
+  actions = [{ text: "Get in Touch", href: "/contact", variant: "primary" }],
 } = Astro.props;
 ---
 
@@ -26,22 +24,24 @@ const {
     <p class="text-xl text-neutral mb-8 max-w-2xl mx-auto">
       {subtitle}
     </p>
-    
-    {actions.length > 0 && (
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        {actions.map((action) => (
-          <a
-            href={action.href}
-            class={
-              action.variant === 'secondary'
-                ? 'px-8 py-3 text-base font-medium rounded-lg border-2 border-white text-white hover:bg-white hover:text-primary transition'
-                : 'px-8 py-3 text-base font-medium rounded-lg bg-white text-primary hover:bg-neutral transition'
-            }
-          >
-            {action.text}
-          </a>
-        ))}
-      </div>
-    )}
+
+    {
+      actions.length > 0 && (
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          {actions.map((action) => (
+            <a
+              href={action.href}
+              class={
+                action.variant === "secondary"
+                  ? "px-8 py-3 text-base font-medium rounded-lg border-2 border-white text-white hover:bg-white hover:text-primary transition"
+                  : "px-8 py-3 text-base font-medium rounded-lg bg-white text-primary hover:bg-neutral transition"
+              }
+            >
+              {action.text}
+            </a>
+          ))}
+        </div>
+      )
+    }
   </div>
 </section>

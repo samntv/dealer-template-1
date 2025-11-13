@@ -13,11 +13,15 @@ const aboutContent = await getEntry("pages", "about-us");
 const { sections } = aboutContent.data;
 
 // Sort sections by order
-const sortedSections = sections.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+const sortedSections = sections.sort(
+  (a: any, b: any) => (a.order || 0) - (b.order || 0)
+);
 
 const metadata = {
-  title: aboutContent.data.metadata?.title || getPageTitle(aboutContent.data.title),
-  description: aboutContent.data.metadata?.description || aboutContent.data.description,
+  title:
+    aboutContent.data.metadata?.title || getPageTitle(aboutContent.data.title),
+  description:
+    aboutContent.data.metadata?.description || aboutContent.data.description,
 };
 ---
 
@@ -101,7 +105,7 @@ const metadata = {
           <CTALight
             title={section.title}
             description={section.description}
-            ctaText={section.ctaText || "Get In Touch"}
+            ctaText={section.ctaText || "Get in Touch"}
             ctaLink={section.ctaLink || "/contact-us"}
           />
         );
@@ -111,4 +115,3 @@ const metadata = {
     })
   }
 </PageLayout>
-

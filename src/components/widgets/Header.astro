@@ -134,7 +134,10 @@ const { actions = [] } = headerData;
                 {link.links && link.links.length > 0 ? (
                   <>
                     {link.href ? (
-                      <a href={link.href} class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center">
+                      <a
+                        href={link.href}
+                        class="dropdown-toggle px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary inline-flex items-center"
+                      >
                         {link.text}
                         <svg
                           class="ml-1 h-4 w-4 transition-transform dropdown-arrow"
@@ -237,49 +240,133 @@ const { actions = [] } = headerData;
                               </div>
                             </div>
 
-                            {/* Featured Section */}
+                            {/* Featured Section - Dynamic Random Service */}
                             <div class="hidden 2xl:block bg-gradient-to-br from-neutral to-white p-8">
                               <div class="text-xs font-bold text-primary uppercase tracking-wider mb-4">
                                 Featured
                               </div>
-                              <a
-                                href="/solutions/foundational/website-design"
-                                class="group block"
-                              >
-                                <div class="relative h-32 rounded-lg overflow-hidden mb-4 shadow-md">
-                                  <img
-                                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
-                                    alt="Website Design"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                  />
-                                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                  <div class="absolute bottom-3 left-3 right-3">
-                                    <div class="text-white font-bold text-sm">
-                                      Website Design
-                                    </div>
-                                  </div>
-                                </div>
-                                <p class="text-xs text-gray-600 mb-4">
-                                  Custom websites that drive results and grow
-                                  your business online.
-                                </p>
-                                <span class="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:gap-2 transition-all">
-                                  Learn More
-                                  <svg
-                                    class="w-3 h-3"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <path
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M9 5l7 7-7 7"
-                                    />
-                                  </svg>
-                                </span>
-                              </a>
+                              {(() => {
+                                // Get current page URL to exclude it
+                                const currentPath = Astro.url.pathname;
+
+                                // Combine all services
+                                const allServices = [
+                                  ...foundational.map((s) => ({
+                                    title: s.data.title,
+                                    description: s.data.description,
+                                    thumbnail: s.data.thumbnail,
+                                    href: getPermalink(
+                                      `/solutions/foundational/${s.slug.replace("foundational/", "")}`
+                                    ),
+                                  })),
+                                  ...leadGen.map((s) => ({
+                                    title: s.data.title,
+                                    description: s.data.description,
+                                    thumbnail: s.data.thumbnail,
+                                    href: getPermalink(
+                                      `/solutions/lead-gen/${s.slug.replace("lead-gen/", "")}`
+                                    ),
+                                  })),
+                                  ...brandingAwareness.map((s) => ({
+                                    title: s.data.title,
+                                    description: s.data.description,
+                                    thumbnail: s.data.thumbnail,
+                                    href: getPermalink(
+                                      `/solutions/branding-awareness/${s.slug.replace("branding-awareness/", "")}`
+                                    ),
+                                  })),
+                                ];
+
+                                // Filter out current page
+                                const availableServices = allServices.filter(
+                                  (s) => s.href !== currentPath
+                                );
+
+                                // Pick random service
+                                const randomService =
+                                  availableServices[
+                                    Math.floor(
+                                      Math.random() * availableServices.length
+                                    )
+                                  ];
+
+                                return randomService;
+                              })() &&
+                                (() => {
+                                  const currentPath = Astro.url.pathname;
+                                  const allServices = [
+                                    ...foundational.map((s) => ({
+                                      title: s.data.title,
+                                      description: s.data.description,
+                                      thumbnail: s.data.thumbnail,
+                                      href: getPermalink(
+                                        `/solutions/foundational/${s.slug.replace("foundational/", "")}`
+                                      ),
+                                    })),
+                                    ...leadGen.map((s) => ({
+                                      title: s.data.title,
+                                      description: s.data.description,
+                                      thumbnail: s.data.thumbnail,
+                                      href: getPermalink(
+                                        `/solutions/lead-gen/${s.slug.replace("lead-gen/", "")}`
+                                      ),
+                                    })),
+                                    ...brandingAwareness.map((s) => ({
+                                      title: s.data.title,
+                                      description: s.data.description,
+                                      thumbnail: s.data.thumbnail,
+                                      href: getPermalink(
+                                        `/solutions/branding-awareness/${s.slug.replace("branding-awareness/", "")}`
+                                      ),
+                                    })),
+                                  ];
+                                  const availableServices = allServices.filter(
+                                    (s) => s.href !== currentPath
+                                  );
+                                  const featured =
+                                    availableServices[
+                                      Math.floor(
+                                        Math.random() * availableServices.length
+                                      )
+                                    ];
+
+                                  return (
+                                    <a href={featured.href} class="group block">
+                                      <div class="relative h-32 rounded-lg overflow-hidden mb-4 shadow-md">
+                                        <img
+                                          src={featured.thumbnail}
+                                          alt={featured.title}
+                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        />
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                        <div class="absolute bottom-3 left-3 right-3">
+                                          <div class="text-white font-bold text-sm">
+                                            {featured.title}
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p class="text-xs text-gray-600 mb-4">
+                                        {featured.description}
+                                      </p>
+                                      <span class="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:gap-2 transition-all">
+                                        Learn More
+                                        <svg
+                                          class="w-3 h-3"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9 5l7 7-7 7"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </a>
+                                  );
+                                })()}
                             </div>
                           </div>
                         </div>
@@ -607,11 +694,7 @@ const { actions = [] } = headerData;
           "invisible",
           "pointer-events-none"
         );
-        dropdown.classList.add(
-          "opacity-100",
-          "visible",
-          "pointer-events-auto"
-        );
+        dropdown.classList.add("opacity-100", "visible", "pointer-events-auto");
         arrow?.classList.add("rotate-180");
       };
 

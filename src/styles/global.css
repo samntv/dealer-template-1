@@ -114,3 +114,64 @@ main {
   display: block;
   width: 100%;
 }
+
+/* Content Links Styling */
+/* Links in light backgrounds */
+.text-gray-600 a,
+.text-gray-700 a {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: all 0.2s ease;
+}
+
+.text-gray-600 a:hover,
+.text-gray-700 a:hover {
+  color: var(--color-primary-dark);
+  text-decoration-thickness: 3px;
+}
+
+/* Links in dark backgrounds - use white with bold underline */
+/* But exclude buttons and card links */
+.text-gray-100 a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]),
+.text-white a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]),
+.text-gray-200 a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]),
+.text-gray-300 a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]),
+.text-gray-400 a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]),
+footer a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]) {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-decoration-color: #ffffff !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  transition: all 0.2s ease !important;
+}
+
+.text-gray-100
+  a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]):hover,
+.text-white a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]):hover,
+.text-gray-200
+  a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]):hover,
+.text-gray-300
+  a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]):hover,
+.text-gray-400
+  a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]):hover,
+footer a:not(.inline-flex):not([class*="bg-"]):not([class*="card"]):hover {
+  color: var(--color-neutral) !important;
+  text-decoration-color: var(--color-neutral) !important;
+  text-decoration-thickness: 3px !important;
+}
+
+/* Exclude ServicesGrid card links from styling */
+[class*="ServicesGrid"] a,
+[class*="services-grid"] a,
+.grid a[class*="group"],
+.grid a[class*="card"] {
+  color: inherit !important;
+  font-weight: inherit !important;
+  text-decoration: none !important;
+}

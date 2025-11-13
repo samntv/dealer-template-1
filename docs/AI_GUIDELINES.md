@@ -41,29 +41,30 @@ This document explains how to update content on this Astro website. Follow these
 
 ```yaml
 site:
-  name: Your Brand              # Change brand name
-  site: 'https://yourdomain.com'  # Change website URL
+  name: Your Brand # Change brand name
+  site: "https://yourdomain.com" # Change website URL
   trailingSlash: false
 
 metadata:
   title:
-    default: Your Brand         # Default page title
-    template: '%s — Your Brand' # Title template (%s = page name)
-  description: 'Your site description for SEO'
-  
+    default: Your Brand # Default page title
+    template: "%s — Your Brand" # Title template (%s = page name)
+  description: "Your site description for SEO"
+
   openGraph:
     site_name: Your Brand
     images:
-      - url: '~/assets/images/default.png'
+      - url: "~/assets/images/default.png"
         width: 1200
         height: 628
-  
+
   twitter:
-    handle: '@yourbrand'
-    site: '@yourbrand'
+    handle: "@yourbrand"
+    site: "@yourbrand"
 ```
 
 **What updates automatically:**
+
 - All page titles
 - Meta descriptions
 - Open Graph tags
@@ -95,6 +96,7 @@ ctaLink: "/contact"
 Your content here...
 
 ### Our Approach
+
 - Strategy development
 - Campaign creation
 - Performance tracking
@@ -104,6 +106,7 @@ Your content here...
 3. Navigation updates automatically
 
 **Frontmatter Fields:**
+
 - `title` (required) - Page title
 - `description` (required) - SEO description
 - `category` (required) - Either "foundational" or "lead-gen"
@@ -177,34 +180,32 @@ The navigation auto-populates from content, but you can customize structure:
 export const headerData = {
   links: [
     {
-      text: 'Home',
-      href: getPermalink('/'),
+      text: "Home",
+      href: getPermalink("/"),
     },
     {
-      text: 'Indoor Billboards',
-      href: getPermalink('/indoor-billboards'),
-      links: 'auto', // Auto-populated from content
+      text: "Indoor Billboards",
+      href: getPermalink("/indoor-billboards"),
+      links: "auto", // Auto-populated from content
     },
     {
-      text: 'Solutions',
-      href: getPermalink('/solutions'),
+      text: "Solutions",
+      href: getPermalink("/solutions"),
       links: [
         {
-          text: 'Foundational',
-          href: getPermalink('/solutions/foundational'),
-          links: 'auto', // Auto-populated
+          text: "Foundational",
+          href: getPermalink("/solutions/foundational"),
+          links: "auto", // Auto-populated
         },
         {
-          text: 'Lead Gen',
-          href: getPermalink('/solutions/lead-gen'),
-          links: 'auto', // Auto-populated
+          text: "Lead Gen",
+          href: getPermalink("/solutions/lead-gen"),
+          links: "auto", // Auto-populated
         },
       ],
     },
   ],
-  actions: [
-    { text: 'Get In Touch', href: getPermalink('/contact') },
-  ],
+  actions: [{ text: "Get in Touch", href: getPermalink("/contact") }],
 };
 ```
 
@@ -214,17 +215,20 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'Solutions',
+      title: "Solutions",
       links: [
-        { text: 'Foundational Services', href: getPermalink('/solutions/foundational') },
-        { text: 'Lead Generation', href: getPermalink('/solutions/lead-gen') },
+        {
+          text: "Foundational Services",
+          href: getPermalink("/solutions/foundational"),
+        },
+        { text: "Lead Generation", href: getPermalink("/solutions/lead-gen") },
       ],
     },
     // Add more sections...
   ],
   socialLinks: [
-    { ariaLabel: 'X', icon: 'tabler:brand-x', href: '#' },
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
+    { ariaLabel: "X", icon: "tabler:brand-x", href: "#" },
+    { ariaLabel: "Instagram", icon: "tabler:brand-instagram", href: "#" },
   ],
 };
 ```
@@ -253,7 +257,7 @@ Paragraph text here.
 - Another point
 
 **Bold text**
-*Italic text*
+_Italic text_
 
 [Link text](https://example.com)
 ```
@@ -285,22 +289,26 @@ Paragraph text here.
 ## 📝 Quick Reference
 
 ### Add New Service Page
+
 1. Create MDX file in `src/content/solutions/foundational/` or `lead-gen/`
 2. Add frontmatter (title, description, category, order)
 3. Write content in Markdown
 4. Save - navigation updates automatically
 
 ### Update Site Info
+
 1. Edit `src/config.yaml`
 2. Change name, URL, description, social handles
 3. Save - updates everywhere automatically
 
 ### Update Homepage
+
 1. Edit `src/pages/index.astro`
 2. Modify Hero, Features, CallToAction props
 3. Save
 
 ### Update Navigation
+
 1. Edit `src/navigation.ts`
 2. Modify headerData or footerData
 3. Save
@@ -310,6 +318,7 @@ Paragraph text here.
 ## 🔍 Testing Changes
 
 After making changes:
+
 1. Check the page renders correctly
 2. Verify navigation links work
 3. Test on mobile view
@@ -320,6 +329,7 @@ After making changes:
 ## 📞 Need Help?
 
 If you encounter issues:
+
 1. Check this guide first
 2. Verify file paths are correct
 3. Ensure frontmatter syntax is valid

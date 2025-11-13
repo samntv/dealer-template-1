@@ -50,7 +50,7 @@ This ensures all necessary dependencies are available for the project
 Step 5: Document Client Requirements
 Create a comprehensive record of the client's specifications.
 Action:
-Open the file docs/CLIENTS_REQUEST.md (located in the docs folder)
+Create a new file docs/CLIENTS_REQUEST.md (in the docs folder)
 Document all client requirements including:
 Company name and branding details
 Color schemes and brand colors (hex codes)
@@ -287,7 +287,7 @@ For more detailed information, refer to these documentation files in the docs/ f
 docs/AI_GUIDELINES.md - Comprehensive guide for content management and updates
 docs/BRANDING.md - Instructions for updating brand identity across the site
 docs/COLOR_SCHEME.md - Guide for customizing the color palette
-docs/CLIENTS_REQUEST.md - Template for documenting client requirements
+docs/CLIENTS_REQUEST.md - Create this file to document client requirements (not included in template)
 
 Glossary of Terms
 npm (Node Package Manager) - Tool for managing JavaScript packages and dependencies
